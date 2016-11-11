@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Unidade
+            <small>Lista</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Unidade</li>
+            <li class="active">lista</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Filtro</div>
+                    <div class="panel-body">
+                        {{ form_start(filter_form, {"class" : "form-inline", "attr": {"novalidate": "novalidate"}}) }}
+
+                        <div class="row">                            <div class="col-md-3">
+                                {{ form_row(filter_form.idUnidade) }}
+                            </div>
+
+                                                    <div class="col-md-3">
+                                {{ form_row(filter_form.nome) }}
+                            </div>
+
+                                                </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr>
+                                <div class="pull-right">
+                                    <button type="reset" class="btn btn-danger"><i class="fa fa-remove"></i> Limpar
+                                    </button>
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i> Pesquisar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        {{ form_end(filter_form, {'render_rest': false}) }}
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-offset-10 col-md-2">
+                                <a href="{{ path('admin_unidade_new') }}" class="btn btn-primary"
+                                   style="float: right;">
+                                    <i class="fa fa-plus"></i> Novo Unidade
+                                </a>
+                            </div>                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Idunidade</th>
+                                    <th>Nome</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for unidade in unidades %}
+                                <tr>
+                                    <td><a href="{{ path('admin_unidade_show', { 'id': unidade.idUnidade }) }}">{{ unidade.idUnidade }}</a></td>
+                                    <td>{{ unidade.nome }}</td>
+                                    <td>
+                                        
+    <div class="btn-toolbar" role="toolbar">                        <a href="{{ path('admin_unidade_show', { 'id': unidade.idUnidade }) }}" class="btn btn-default btn-group" role="group">
+                                    <i class="fa fa-eye"></i> <span class="hidden-xs">Visualizar</span>
+                            </a>                        <a href="{{ path('admin_unidade_edit', { 'id': unidade.idUnidade }) }}" class="btn btn-success btn-group" role="group">
+                                    <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
+                            </a>
+    </div></td>
+                                </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3">Nenhum registro encontrado!</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="navigation">
+                            {{ knp_pagination_render(unidades) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
