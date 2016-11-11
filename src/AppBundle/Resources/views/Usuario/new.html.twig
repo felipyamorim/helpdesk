@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Usuario
+            <small>novo</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Usuario</li>
+            <li class="active">Novo</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="title">Novo Usuario</h4>
+                    </div>
+                    {{ form_start(form, {"attr": {"novalidate": "novalidate"}}) }}
+                    <div class="panel-body">
+                        {{ form_widget(form) }}
+                    </div>
+                    <div class="panel-footer">
+                        <div class="btn-toolbar" role="toolbar">
+                                                            <a href="{{ path('admin_usuario_index') }}" class="btn btn-default btn-group" role="group">
+        <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
+    </a><button type="submit" class="btn btn-success" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Salvando Usuario">
+                                <i class="fa fa-floppy-o"></i>  <span class="hidden-xs">Salvar</span>
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

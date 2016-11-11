@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Usuario
+            <small>visualizar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Usuario</li>
+            <li class="active">Visualizar</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="title">Usuario #{{ usuario.idUsuario }} </h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Id Usuario</th>
+                                <td>{{ usuario.idUsuario }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nome</th>
+                                <td>{{ usuario.nome }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ usuario.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Senha</th>
+                                <td>{{ usuario.senha }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <h1>Telefones</h1>
+
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Tipo</th>
+                                <td>Número</td>
+                                <td>Ramal</td>
+                            </tr>
+                            {% for telefone in usuario.telefones %}
+                                <tr>
+                                    <td>{{ telefone.tipoTelefone }}</td>
+                                    <td>{{ telefone.numero }}</td>
+                                    <td>{{ telefone.ramal }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{ path('admin_usuario_index') }}" class="btn btn-default btn-group" role="group">
+                            <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
+                        </a>
+                        <a href="{{ path('admin_usuario_edit', { 'id': usuario.idUsuario }) }}"
+                           class="btn btn-success btn-group" role="group">
+                            <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
+                        </a> <a href="{{ path('admin_usuario_delete', { 'id': usuario.idUsuario }) }}"
+                                class="btn btn-danger btn-group" role="group" title="Deletar"
+                                data-confirm="Tem certeza de que deseja remover este registro?">
+                            <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
+                        </a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

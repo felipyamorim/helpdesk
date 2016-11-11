@@ -1,0 +1,281 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Chamado
+ *
+ * @ORM\Table(name="chamado", indexes={@ORM\Index(name="fk_Chamado_Problema1_idx", columns={"problema"}), @ORM\Index(name="fk_Chamado_Usuario1_idx", columns={"usuario"}), @ORM\Index(name="fk_Chamado_Usuario2_idx", columns={"tecnico"})})
+ * @ORM\Entity
+ */
+class Chamado
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idChamado", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idchamado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="decricao", type="string", length=120, nullable=false)
+     */
+    private $decricao;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data", type="datetime", nullable=false)
+     */
+    private $data;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="prioridade", type="integer", nullable=false)
+     */
+    private $prioridade;
+
+    /**
+     * @var \Problema
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Problema")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="problema", referencedColumnName="idProblema")
+     * })
+     */
+    private $problema;
+
+    /**
+     * @var \Usuario
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuario", referencedColumnName="idUsuario")
+     * })
+     */
+    private $usuario;
+
+    /**
+     * @var \Usuario
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tecnico", referencedColumnName="idUsuario")
+     * })
+     */
+    private $tecnico;
+
+
+
+    /**
+     * Set idchamado
+     *
+     * @param integer $idchamado
+     *
+     * @return Chamado
+     */
+    public function setIdchamado($idchamado)
+    {
+        $this->idchamado = $idchamado;
+
+        return $this;
+    }
+
+    /**
+     * Get idchamado
+     *
+     * @return integer
+     */
+    public function getIdchamado()
+    {
+        return $this->idchamado;
+    }
+
+    /**
+     * Set decricao
+     *
+     * @param string $decricao
+     *
+     * @return Chamado
+     */
+    public function setDecricao($decricao)
+    {
+        $this->decricao = $decricao;
+
+        return $this;
+    }
+
+    /**
+     * Get decricao
+     *
+     * @return string
+     */
+    public function getDecricao()
+    {
+        return $this->decricao;
+    }
+
+    /**
+     * Set data
+     *
+     * @param \DateTime $data
+     *
+     * @return Chamado
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return \DateTime
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Chamado
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set prioridade
+     *
+     * @param integer $prioridade
+     *
+     * @return Chamado
+     */
+    public function setPrioridade($prioridade)
+    {
+        $this->prioridade = $prioridade;
+
+        return $this;
+    }
+
+    /**
+     * Get prioridade
+     *
+     * @return integer
+     */
+    public function getPrioridade()
+    {
+        return $this->prioridade;
+    }
+
+    /**
+     * Set problema
+     *
+     * @param \AppBundle\Entity\Problema $problema
+     *
+     * @return Chamado
+     */
+    public function setProblema(\AppBundle\Entity\Problema $problema)
+    {
+        $this->problema = $problema;
+
+        return $this;
+    }
+
+    /**
+     * Get problema
+     *
+     * @return \AppBundle\Entity\Problema
+     */
+    public function getProblema()
+    {
+        return $this->problema;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\Usuario $usuario
+     *
+     * @return Chamado
+     */
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set tecnico
+     *
+     * @param \AppBundle\Entity\Usuario $tecnico
+     *
+     * @return Chamado
+     */
+    public function setTecnico(\AppBundle\Entity\Usuario $tecnico)
+    {
+        $this->tecnico = $tecnico;
+
+        return $this;
+    }
+
+    /**
+     * Get tecnico
+     *
+     * @return \AppBundle\Entity\Usuario
+     */
+    public function getTecnico()
+    {
+        return $this->tecnico;
+    }
+}

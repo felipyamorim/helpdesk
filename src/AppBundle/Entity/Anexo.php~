@@ -1,0 +1,116 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Anexo
+ *
+ * @ORM\Table(name="anexo", indexes={@ORM\Index(name="fk_Anexo_Chamado1_idx", columns={"chamado"})})
+ * @ORM\Entity
+ */
+class Anexo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idAnexo", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idanexo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="caminho", type="string", length=255, nullable=false)
+     */
+    private $caminho;
+
+    /**
+     * @var \Chamado
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Chamado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="chamado", referencedColumnName="idChamado")
+     * })
+     */
+    private $chamado;
+
+
+
+    /**
+     * Set idanexo
+     *
+     * @param integer $idanexo
+     *
+     * @return Anexo
+     */
+    public function setIdanexo($idanexo)
+    {
+        $this->idanexo = $idanexo;
+
+        return $this;
+    }
+
+    /**
+     * Get idanexo
+     *
+     * @return integer
+     */
+    public function getIdanexo()
+    {
+        return $this->idanexo;
+    }
+
+    /**
+     * Set caminho
+     *
+     * @param string $caminho
+     *
+     * @return Anexo
+     */
+    public function setCaminho($caminho)
+    {
+        $this->caminho = $caminho;
+
+        return $this;
+    }
+
+    /**
+     * Get caminho
+     *
+     * @return string
+     */
+    public function getCaminho()
+    {
+        return $this->caminho;
+    }
+
+    /**
+     * Set chamado
+     *
+     * @param \AppBundle\Entity\Chamado $chamado
+     *
+     * @return Anexo
+     */
+    public function setChamado(\AppBundle\Entity\Chamado $chamado)
+    {
+        $this->chamado = $chamado;
+
+        return $this;
+    }
+
+    /**
+     * Get chamado
+     *
+     * @return \AppBundle\Entity\Chamado
+     */
+    public function getChamado()
+    {
+        return $this->chamado;
+    }
+}
