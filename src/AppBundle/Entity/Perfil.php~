@@ -1,0 +1,41 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Perfil
+ *
+ * @ORM\Table(name="perfil", uniqueConstraints={@ORM\UniqueConstraint(name="nome_UNIQUE", columns={"nome"})})
+ * @ORM\Entity
+ */
+class Perfil
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idPerfil", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idPerfil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="string", length=45, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * Get idperfil
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->idPerfil;
+    }
+
+}
