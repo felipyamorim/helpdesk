@@ -1,0 +1,32 @@
+{
+  "name": "helpnow",
+  "authors": [
+    "Felipy Amorim <felipyamorim@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/plugins",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "fontawesome#^4.7.0",
+    "Ionicons": "ionicons#^2.0.1",
+    "html5shiv": "^3.7.3",
+    "respond": "^1.4.2",
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7",
+    "iCheck": "icheck#^1.0.2",
+    "select2": "^4.0.3",
+    "select2-bootstrap-theme": "^0.1.0-beta.9",
+    "jquery-mask-plugin": "https://github.com/igorescobar/jQuery-Mask-Plugin.git#^1.14.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.43",
+    "bootbox.js": "bootbox#^4.4.0"
+  }
+}
