@@ -12,12 +12,15 @@ class LoadPerfilData extends AbstractFixture  implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $perfil1 = new Perfil();
+        $perfil1->setId(1);
         $perfil1->setNome('Usuário');
 
         $perfil2 = new Perfil();
+        $perfil2->setId(2);
         $perfil2->setNome('Técnico');
 
         $perfil3 = new Perfil();
+        $perfil3->setId(3);
         $perfil3->setNome('Adminsitrador');
 
         $this->addReference('administrador-perfil', $perfil3);

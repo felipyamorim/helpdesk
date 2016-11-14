@@ -17,16 +17,16 @@ class Chamado
      *
      * @ORM\Column(name="idChamado", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idchamado;
+    private $idChamado;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="decricao", type="string", length=120, nullable=false)
+     * @ORM\Column(name="descricao", type="string", length=120, nullable=false)
      */
-    private $decricao;
+    private $descricao;
 
     /**
      * @var \DateTime
@@ -50,10 +50,8 @@ class Chamado
     private $prioridade;
 
     /**
-     * @var \Problema
+     * @var Problema
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Problema")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="problema", referencedColumnName="idProblema")
@@ -62,11 +60,9 @@ class Chamado
     private $problema;
 
     /**
-     * @var \Usuario
+     * @var Usuario
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="chamadosUsuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario", referencedColumnName="idUsuario")
      * })
@@ -74,65 +70,64 @@ class Chamado
     private $usuario;
 
     /**
-     * @var \Usuario
+     * @var Usuario
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="chamadosTecnicos")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="tecnico", referencedColumnName="idUsuario")
      * })
      */
     private $tecnico;
 
+    /**
+     * @var Anexo
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Anexo", mappedBy="chamado", orphanRemoval=true)
+     */
+    private $anexos;
 
+    private $files;
 
     /**
-     * Set idchamado
-     *
-     * @param integer $idchamado
-     *
-     * @return Chamado
+     * Constructor
      */
-    public function setIdchamado($idchamado)
+    public function __construct()
     {
-        $this->idchamado = $idchamado;
-
-        return $this;
+        $this->anexos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get idchamado
+     * Get idChamado
      *
      * @return integer
      */
-    public function getIdchamado()
+    public function getIdChamado()
     {
-        return $this->idchamado;
+        return $this->idChamado;
     }
 
     /**
-     * Set decricao
+     * Set descricao
      *
-     * @param string $decricao
+     * @param string $descricao
      *
      * @return Chamado
      */
-    public function setDecricao($decricao)
+    public function setDescricao($descricao)
     {
-        $this->decricao = $decricao;
+        $this->descricao = $descricao;
 
         return $this;
     }
 
     /**
-     * Get decricao
+     * Get descricao
      *
      * @return string
      */
-    public function getDecricao()
+    public function getDescricao()
     {
-        return $this->decricao;
+        return $this->descricao;
     }
 
     /**
@@ -214,7 +209,7 @@ class Chamado
      *
      * @return Chamado
      */
-    public function setProblema(\AppBundle\Entity\Problema $problema)
+    public function setProblema(\AppBundle\Entity\Problema $problema = null)
     {
         $this->problema = $problema;
 
@@ -238,7 +233,7 @@ class Chamado
      *
      * @return Chamado
      */
-    public function setUsuario(\AppBundle\Entity\Usuario $usuario)
+    public function setUsuario(\AppBundle\Entity\Usuario $usuario = null)
     {
         $this->usuario = $usuario;
 
@@ -262,7 +257,7 @@ class Chamado
      *
      * @return Chamado
      */
-    public function setTecnico(\AppBundle\Entity\Usuario $tecnico)
+    public function setTecnico(\AppBundle\Entity\Usuario $tecnico = null)
     {
         $this->tecnico = $tecnico;
 
@@ -277,5 +272,39 @@ class Chamado
     public function getTecnico()
     {
         return $this->tecnico;
+    }
+
+    /**
+     * Add anexo
+     *
+     * @param \AppBundle\Entity\Anexo $anexo
+     *
+     * @return Chamado
+     */
+    public function addAnexo(\AppBundle\Entity\Anexo $anexo)
+    {
+        $this->anexos[] = $anexo;
+
+        return $this;
+    }
+
+    /**
+     * Remove anexo
+     *
+     * @param \AppBundle\Entity\Anexo $anexo
+     */
+    public function removeAnexo(\AppBundle\Entity\Anexo $anexo)
+    {
+        $this->anexos->removeElement($anexo);
+    }
+
+    /**
+     * Get anexos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnexos()
+    {
+        return $this->anexos;
     }
 }

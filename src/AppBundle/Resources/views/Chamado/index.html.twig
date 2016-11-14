@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Chamado
+            <small>Lista</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Chamado</li>
+            <li class="active">lista</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Filtro</div>
+                    <div class="panel-body">
+                        {{ form_start(filter_form, {"class" : "form-inline", "attr": {"novalidate": "novalidate"}}) }}
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ form_row(filter_form.idChamado) }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ form_row(filter_form.descricao) }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ form_row(filter_form.data) }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ form_row(filter_form.status) }}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ form_row(filter_form.prioridade) }}
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr>
+                                <div class="pull-right">
+                                    <button type="reset" class="btn btn-danger"><i class="fa fa-remove"></i> Limpar
+                                    </button>
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i> Pesquisar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        {{ form_end(filter_form, {'render_rest': false}) }}
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Chamados</div>
+                    <div class="panel-body">
+
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id do Chamado</th>
+                                <th>Descrição</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Prioridade</th>
+                                <th>Ação</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for chamado in chamados %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('admin_chamado_show', { 'id': chamado.idChamado }) }}">{{ chamado.idChamado }}</a>
+                                    </td>
+                                    <td>{{ chamado.descricao }}</td>
+                                    <td>{% if chamado.data %}{{ chamado.data|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>
+                                        {% if chamado.status is not null %}
+                                            {{ chamado.status }}
+                                        {% else %}
+                                            Chamado em Aberto
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if chamado.prioridade == 1 %}
+                                            Baixa
+                                        {% elseif chamado.prioridade == 2 %}
+                                            Média
+                                        {% elseif chamado.prioridade == 3 %}
+                                            Alta
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-toolbar" role="toolbar"><a
+                                                    href="{{ path('admin_chamado_show', { 'id': chamado.idChamado }) }}"
+                                                    class="btn btn-default btn-group" role="group">
+                                                <i class="fa fa-eye"></i> <span class="hidden-xs">Visualizar</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">Nenhum registro encontrado!</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="navigation">
+                            {{ knp_pagination_render(chamados) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

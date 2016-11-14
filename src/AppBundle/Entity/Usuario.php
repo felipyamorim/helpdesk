@@ -314,7 +314,12 @@ class Usuario implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USUARIO');
+        switch ($this->getPerfil()->getIdPerfil()){
+            case 1:$role = array('ROLE_USUARIO');break;
+            case 2:$role = array('ROLE_TECNICO');break;
+            case 3:$role = array('ROLE_ADMIN');break;
+        }
+        return $role;
     }
 
     public function getPassword()

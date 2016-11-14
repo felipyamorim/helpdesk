@@ -28,6 +28,11 @@ class Problema
      */
     private $nome;
 
+    public function __toString()
+    {
+       return $this->getNome();
+    }
+
     /**
      * Get idProblema
      *

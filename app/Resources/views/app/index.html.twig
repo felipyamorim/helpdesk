@@ -12,6 +12,358 @@
     </section>
 
     <section class="content">
-        Páginal Inicial
+
+        {% if is_granted('ROLE_USUARIO') %}
+            {{ render(controller('AppBundle:Indicador:resolvidoAberto')) }}
+        {% endif %}
+
+        {% if is_granted('ROLE_USUARIO') %}
+
+        <section class="col-lg-4">
+            <!-- solid sales graph -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Chamados em aberto</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+                        <li class="item">
+                            <div class="">
+                                <a href="javascript:void(0)" class="product-title">Problema:
+                                    <span class="label label-warning pull-right">Usuário</span>
+                                    <span class="label label-warning pull-right">Técnico</span>
+                                </a>
+                                <span class="product-description">Descrição</span>
+                            </div>
+                        </li>
+                        <!-- /.item -->
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+            <!-- /.box -->
+        </section>
+
+        <section class="col-lg-4">
+            <!-- solid sales graph -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Chamados em aberto</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+                        <li class="item">
+                            <div class="">
+                                <a href="javascript:void(0)" class="product-title">Problema:
+                                    <span class="label label-warning pull-right">Usuário</span>
+                                    <span class="label label-warning pull-right">Técnico</span>
+                                </a>
+                                <span class="product-description">Descrição</span>
+                            </div>
+                        </li>
+                        <!-- /.item -->
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+            <!-- /.box -->
+        </section>
+
+        <section class="col-lg-4">
+            <!-- solid sales graph -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Chamados em aberto</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+                        <li class="item">
+                            <div class="">
+                                <a href="javascript:void(0)" class="product-title">Problema:
+                                    <span class="label label-warning pull-right">Usuário</span>
+                                    <span class="label label-warning pull-right">Técnico</span>
+                                </a>
+                                <span class="product-description">Descrição</span>
+                            </div>
+                        </li>
+                        <!-- /.item -->
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+            <!-- /.box -->
+        </section>
+        {% endif %}
+
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="row">
+            {{ render(controller('AppBundle:Indicador:countChamados')) }}
+            <!-- ./col -->
+            {{ render(controller('AppBundle:Indicador:porcentagemChamados')) }}
+            <!-- ./col -->
+            {{ render(controller('AppBundle:Indicador:countUsuarios')) }}
+            <!-- ./col -->
+            {{ render(controller('AppBundle:Indicador:pendenteChamados')) }}
+            <!-- ./col -->
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7">
+                <!-- Custom tabs (Charts with tabs)-->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Balanço Anual Chamados</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="chart tab-pane active" id="bar-chart" style="position: relative; height: 300px;"></div>
+                    </div>
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </section>
+
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5">
+                <!-- solid sales graph -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chamados em aberto</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="">
+                                    <a href="javascript:void(0)" class="product-title">Problema:
+                                        <span class="label label-warning pull-right">Usuário</span>
+                                        <span class="label label-warning pull-right">Técnico</span>
+                                    </a>
+                                    <span class="product-description">Descrição</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.box -->
+            </section>
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <section class="col-lg-6">
+                <!-- DONUT CHART -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chamados x Unidade (Últimos 7 dias)</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="pieChart" style="height:250px"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-lg-6">
+                <!-- DONUT CHART -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Top 10 Problemas</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="top-problemas-chart" style="height:250px"></canvas>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+            <!-- /.Left col -->
+            <!-- right col -->
+        </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        /* Morris.js Charts */
+        // Sales chart
+        /*var area = new Morris.Area({
+            element: 'revenue-chart',
+            resize: true,
+            data: [
+                {y: '2011 Q1', item1: 2666, item2: 2666},
+                {y: '2011 Q2', item1: 2778, item2: 2294},
+                {y: '2011 Q3', item1: 4912, item2: 1969},
+                {y: '2011 Q4', item1: 3767, item2: 3597},
+                {y: '2012 Q1', item1: 6810, item2: 1914},
+                {y: '2012 Q2', item1: 5670, item2: 4293},
+                {y: '2012 Q3', item1: 4820, item2: 3795},
+                {y: '2012 Q4', item1: 15073, item2: 5967},
+                {y: '2013 Q1', item1: 10687, item2: 4460},
+                {y: '2013 Q2', item1: 8432, item2: 5713},
+                {y: '2014 Q2', item1: 8432, item2: 5713}
+            ],
+            xkey: 'y',
+            ykeys: ['item1', 'item2'],
+            labels: ['Anertos', 'Atendidos'],
+            lineColors: ['#a0d0e0', '#3c8dbc'],
+            hideHover: 'auto'
+        });
+
+        var line = new Morris.Line({
+            element: 'line-chart',
+            resize: true,
+            data: [
+                {y: '2011 Q1', item1: 2666},
+                {y: '2011 Q2', item1: 2778},
+                {y: '2011 Q3', item1: 4912},
+                {y: '2011 Q4', item1: 3767},
+                {y: '2012 Q1', item1: 6810},
+                {y: '2012 Q2', item1: 5670},
+                {y: '2012 Q3', item1: 4820},
+                {y: '2012 Q4', item1: 15073},
+                {y: '2013 Q1', item1: 10687},
+                {y: '2013 Q2', item1: 8432}
+            ],
+            xkey: 'y',
+            ykeys: ['item1'],
+            labels: ['Item 1'],
+            lineColors: ['#efefef'],
+            lineWidth: 2,
+            hideHover: 'auto',
+            gridTextColor: "#fff",
+            gridStrokeWidth: 0.4,
+            pointSize: 4,
+            pointStrokeColors: ["#efefef"],
+            gridLineColor: "#efefef",
+            gridTextFamily: "Open Sans",
+            gridTextSize: 10
+        });*/
+
+        // Donut chart
+        if($('#sales-chart').length){
+            //Donut Chart
+            var donut = new Morris.Donut({
+                element: 'sales-chart',
+                resize: true,
+                colors: ["#3c8dbc", "#f56954", "#00a65a"],
+                data: $('#sales-chart').data('chart'),
+                hideHover: 'auto'
+            });
+        }
+
+        //BAR CHART
+        var bar = new Morris.Bar({
+            element: 'bar-chart',
+            resize: true,
+            data: [
+                {y: 'Jul', a: 100, b: 90},
+                {y: 'Ago', a: 100, b: 90},
+                {y: 'Set', a: 100, b: 90},
+                {y: 'Out', a: 100, b: 90},
+                {y: 'Nov', a: 100, b: 90},
+                {y: 'Dez', a: 100, b: 90}
+            ],
+            barColors: ['#00a65a', '#f56954'],
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['Abertos', 'Fechados'],
+            hideHover: 'auto'
+        });
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+
+        // For a pie chart
+        var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+        var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        var data = {
+            labels: [
+                "DST",
+                "Blue",
+                "Yellow"
+            ],
+            datasets: [
+                {
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        dynamicColors(),
+                        dynamicColors(),
+                        dynamicColors()
+                    ]
+                }]
+        };
+
+        var myChart = new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: {"labels":["DST1","DST"],"datasets":[{"data":[30,30],"backgroundColor":["#245c1a","#525d37"]}]},
+        });
+
+        var myChart = new Chart($('#top-problemas-chart'), {
+            type: 'pie',
+            data: {"labels":["DST1","DST"],"datasets":[{"data":[30,30],"backgroundColor":["#245c1a","#525d37"]}]},
+        });
+    </script>
 {% endblock %}

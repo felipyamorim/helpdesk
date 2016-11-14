@@ -19,7 +19,7 @@ class Anexo
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $idanexo;
+    private $idAnexo;
 
     /**
      * @var string
@@ -29,88 +29,12 @@ class Anexo
     private $caminho;
 
     /**
-     * @var \Chamado
+     * @var Chamado
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Chamado")
+     * @ORM\ManyToOne(targetEntity="Chamado", inversedBy="anexos")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="chamado", referencedColumnName="idChamado")
      * })
      */
     private $chamado;
-
-
-
-    /**
-     * Set idanexo
-     *
-     * @param integer $idanexo
-     *
-     * @return Anexo
-     */
-    public function setIdanexo($idanexo)
-    {
-        $this->idanexo = $idanexo;
-
-        return $this;
-    }
-
-    /**
-     * Get idanexo
-     *
-     * @return integer
-     */
-    public function getIdanexo()
-    {
-        return $this->idanexo;
-    }
-
-    /**
-     * Set caminho
-     *
-     * @param string $caminho
-     *
-     * @return Anexo
-     */
-    public function setCaminho($caminho)
-    {
-        $this->caminho = $caminho;
-
-        return $this;
-    }
-
-    /**
-     * Get caminho
-     *
-     * @return string
-     */
-    public function getCaminho()
-    {
-        return $this->caminho;
-    }
-
-    /**
-     * Set chamado
-     *
-     * @param \AppBundle\Entity\Chamado $chamado
-     *
-     * @return Anexo
-     */
-    public function setChamado(\AppBundle\Entity\Chamado $chamado)
-    {
-        $this->chamado = $chamado;
-
-        return $this;
-    }
-
-    /**
-     * Get chamado
-     *
-     * @return \AppBundle\Entity\Chamado
-     */
-    public function getChamado()
-    {
-        return $this->chamado;
-    }
 }

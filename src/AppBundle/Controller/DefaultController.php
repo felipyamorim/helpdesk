@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Usuario;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class DefaultController extends Controller
     /**
      * @Route("/perfil", name="edit_perfil")
      */
-    public function editePerfilAction(Request $request)
+    public function editPerfilAction(Request $request)
     {
 
         $usuario = $this->getUser();
@@ -42,6 +43,34 @@ class DefaultController extends Controller
         return $this->render('app/perfil.html.twig', array(
             'usuario' => $usuario,
             'edit_form' => $editForm->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/registrar", name="usuario_registrar")s
+     */
+    public function registerAction(Request $request)
+    {
+        $usuario = new Usuario();
+        $editForm = $this->createForm('AppBundle\Form\RegistrarType', $usuario);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $usuario->setPerfil($em->getReference('AppBundle\Entity\Perfil', 1));
+            $usuario->setSenha(hash('sha512', $usuario->getSenha()));
+
+            $em->persist($usuario);
+            $em->flush();
+
+            $this->addFlash('success', 'Usuário registrado com sucesso, faça o login!');
+
+            return $this->redirectToRoute('login', array('last_username' => $usuario->getEmail()));
+        }
+
+        return $this->render('security/registrar.html.twig', array(
+            'edit_form' => $editForm->createView()
         ));
     }
 

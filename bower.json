@@ -28,5 +28,9 @@
     "jquery-mask-plugin": "https://github.com/igorescobar/jQuery-Mask-Plugin.git#^1.14.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
     "bootbox.js": "bootbox#^4.4.0"
+  },
+  "devDependencies": {
+    "morris.js": "morrisjs#^0.5.1",
+    "chart.js": "chartjs#^2.4.0"
   }
 }

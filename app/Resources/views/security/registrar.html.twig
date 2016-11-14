@@ -25,53 +25,52 @@
     <![endif]-->
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ path('homepage') }}"><b>Help</b>Now</a>
+<div class="register-box">
+    <div class="register-logo">
+        <a href="../../index2.html"><b>Admin</b>LTE</a>
     </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        {% for type, flashes in app.session.flashbag.all %}
-            {% for flash in flashes %}
-                <div class="alert alert-{{ type }} fade in">
-                    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{ flash|raw }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-        <p class="login-box-msg">Informe seus dados para iniciar a sessão</p>
 
-        <form action="{{ path('login') }}" method="post">
-            <div class="form-group has-feedback">
-                <input type="email" name="username" class="form-control" placeholder="Email"
-                       value="{{ last_username ? last_username : app.request.query.all['last_username']|default }}">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Senha">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
+    <div class="register-box-body">
+        <p class="login-box-msg">Registre-se como um novo membro</p>
+
+        {{ form_start(edit_form, {"attr": {"novalidate": "novalidate"}}) }}
+            {{ form_widget(edit_form) }}
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="_remember_me"> Lembrar-me
+                            <input type="checkbox"> Eu aceito os <a href="#">termos</a>
                         </label>
                     </div>
                 </div>
-                <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
                 </div>
-                <!-- /.col -->
             </div>
-        </form>
+        {{ form_end(edit_form) }}
+        </br>
+        <a href="{{ path('login') }}" class="text-center">Já sou cadastrado</a>
 
-        <a href="#">Esqueci minha senha</a><br>
-        <a href="{{ path('usuario_registrar') }}" class="text-center">Registrar-se</a>
-
+        <!--<form action="{{ path('usuario_registrar') }}" method="post">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Nome">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="email" class="form-control" placeholder="Email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Retype password">
+                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            </div>
+            -->
     </div>
-    <!-- /.login-box-body -->
+    <!-- /.form-box -->
 </div>
 <!-- /.login-box -->
 
@@ -81,6 +80,9 @@
 <script src="{{ asset('plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"></script>
+<script src="{{ asset('plugins/jquery-mask-plugin/dist/jquery.mask.min.js') }}"></script>
+<script src="{{ asset('dist/js/app.min.js') }}"></script>
 <script>
     $(function () {
         $('input').iCheck({

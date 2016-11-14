@@ -31,6 +31,18 @@ class Perfil
     private $nome;
 
     /**
+     * Set idperfil
+     *
+     * @return Perfil
+     */
+    public function setId($id)
+    {
+        $this->idPerfil = $id;
+
+        return $this;
+    }
+
+    /**
      * Get idperfil
      *
      * @return integer
