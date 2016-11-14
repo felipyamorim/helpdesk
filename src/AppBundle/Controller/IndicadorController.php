@@ -21,8 +21,30 @@ class IndicadorController extends Controller
 
     public function balancoAnualAction()
     {
+        $month = array(
+            1 => 'Jan',
+            2 => 'Fev',
+            3 => 'Mar',
+            4 => 'Abr',
+            5 => 'Mai',
+            6 => 'Jun',
+            7 => 'Jul',
+            8 => 'Ago',
+            9 => 'Set',
+            10 => 'Out',
+            11 => 'Nov',
+            12 => 'Dec',
+        );
+
+        $balancoArray = $this->getDoctrine()->getRepository('AppBundle:Chamado')->balancoChamados();
+
+        $balanco = array_map(function($balancoArray) use ($month){
+            $balancoArray['month'] = $month[$balancoArray['month']];
+            return $balancoArray;
+        }, $balancoArray);
+
         return $this->render('AppBundle:Indicador:balanco_anual.html.twig', array(
-            // ...
+            'balanco' => $balanco
         ));
     }
 
@@ -50,7 +72,53 @@ class IndicadorController extends Controller
     public function pendenteChamadosAction()
     {
         return $this->render('@App/Indicador/pendentes_chamados.html.twig', array(
-            'chamados' => $this->getDoctrine()->getRepository('AppBundle:Chamado')->porcentagemChamados()
+            'chamados' => $this->getDoctrine()->getRepository('AppBundle:Chamado')->pendentesChamados()
+        ));
+    }
+
+    public function chamadoUnidadeAction()
+    {
+        $chamados = $this->getDoctrine()->getRepository('AppBundle:Chamado')->chamadosXUnidades();
+
+        $labels = array(
+            'labels' => array(),
+            'datasets' => array(array('data' => array(), 'backgroundColor' => array()))
+        );
+
+        foreach ($chamados as $chamado){
+            $labels['labels'][] = $chamado['nome'];
+            $labels['datasets'][0]['data'][] = (int)$chamado['total'];
+            $labels['datasets'][0]['backgroundColor'][] = '#525d37';
+        }
+
+        return $this->render('@App/Indicador/chamado_unidade.html.twig', array(
+            'chamados' => $labels
+        ));
+    }
+
+    public function topProblemaAction()
+    {
+        $chamados = $this->getDoctrine()->getRepository('AppBundle:Chamado')->topProblema();
+
+        $labels = array(
+            'labels' => array(),
+            'datasets' => array(array('data' => array(), 'backgroundColor' => array()))
+        );
+
+        foreach ($chamados as $chamado){
+            $labels['labels'][] = $chamado['nome'];
+            $labels['datasets'][0]['data'][] = (int)$chamado['total'];
+            $labels['datasets'][0]['backgroundColor'][] = '#525d37';
+        }
+
+        return $this->render('@App/Indicador/top10_problema.html.twig', array(
+            'chamados' => $labels
+        ));
+    }
+
+    public function chamadoAbertosAction(){
+        return $this->render('@App/Indicador/chamados_abertos.html.twig', array(
+            'chamados' => $this->getDoctrine()->getRepository('AppBundle:Chamado')->listarChamadosPendentes()
         ));
     }
 }

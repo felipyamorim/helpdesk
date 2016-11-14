@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Perfil
@@ -23,10 +24,31 @@ class Perfil
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="45")
      * @ORM\Column(name="nome", type="string", length=45, nullable=false)
      */
     private $nome;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(max="45")
+     * @ORM\Column(name="role", type="string", length=45, nullable=false)
+     */
+    private $role;
+
+    /**
+     * Set idperfil
+     *
+     * @return Perfil
+     */
+    public function setId($id)
+    {
+        $this->idPerfil = $id;
+
+        return $this;
+    }
 
     /**
      * Get idperfil
@@ -38,4 +60,42 @@ class Perfil
         return $this->idPerfil;
     }
 
+    /**
+     * Get idPerfil
+     *
+     * @return integer
+     */
+    public function getIdPerfil()
+    {
+        return $this->idPerfil;
+    }
+
+    /**
+     * Set nome
+     *
+     * @param string $nome
+     *
+     * @return Perfil
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+
+        return $this;
+    }
+
+    /**
+     * Get nome
+     *
+     * @return string
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function __toString()
+    {
+        return $this->getNome();
+    }
 }

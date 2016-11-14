@@ -31,6 +31,14 @@ class Perfil
     private $nome;
 
     /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(max="45")
+     * @ORM\Column(name="role", type="string", length=45, nullable=false)
+     */
+    private $role;
+
+    /**
      * Set idperfil
      *
      * @return Perfil
@@ -89,5 +97,29 @@ class Perfil
     public function __toString()
     {
         return $this->getNome();
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     *
+     * @return Perfil
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

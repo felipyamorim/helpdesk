@@ -2,7 +2,9 @@
     <!-- small box -->
     <div class="small-box bg-green">
         <div class="inner">
-            <h3>{{ porcentagem.total_fechados * 100 / porcentagem.total }}<sup style="font-size: 20px">%</sup></h3>
+            <h3>
+                {% if porcentagem.total > 0 %}{{ porcentagem.total_fechados * 100 / porcentagem.total }}{% else %}0{% endif %}<sup style="font-size: 20px">%</sup>
+            </h3>
 
             <p>Chamados Atendidos</p>
         </div>
