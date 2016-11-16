@@ -70,6 +70,7 @@ class UsuarioController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $usuario->setSenha(hash('sha512', $usuario->getSenha()));
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
             $em->flush();
@@ -113,6 +114,7 @@ class UsuarioController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
+            $usuario->setSenha(hash('sha512', $usuario->getSenha()));
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
             $em->flush();

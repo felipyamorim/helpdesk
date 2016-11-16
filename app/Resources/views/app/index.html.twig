@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="content-header">
-        <h1>Dash Board
+        <h1>Dashboard
             <small>Descrição opcional</small>
         </h1>
         <ol class="breadcrumb">
@@ -18,111 +18,147 @@
         {% endif %}
 
         {% if is_granted('ROLE_USUARIO') %}
-
-        <section class="col-lg-4">
-            <!-- solid sales graph -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Chamados em aberto</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+        <div class="row">
+            <section class="col-lg-4">
+                <!-- solid sales graph -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chamados em aberto</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <ul class="products-list product-list-in-box">
-                        <li class="item">
-                            <div class="">
-                                <a href="javascript:void(0)" class="product-title">Problema:
-                                    <span class="label label-warning pull-right">Usuário</span>
-                                    <span class="label label-warning pull-right">Técnico</span>
-                                </a>
-                                <span class="product-description">Descrição</span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
-                    </ul>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                    <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
-                </div>
-                <!-- /.box-footer -->
-            </div>
-            <!-- /.box -->
-        </section>
-
-        <section class="col-lg-4">
-            <!-- solid sales graph -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Chamados em aberto</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="">
+                                    <a href="javascript:void(0)" class="product-title">Problema:
+                                        <span class="label label-warning pull-right">Usuário</span>
+                                        <span class="label label-warning pull-right">Técnico</span>
+                                    </a>
+                                    <span class="product-description">Descrição</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </ul>
                     </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <ul class="products-list product-list-in-box">
-                        <li class="item">
-                            <div class="">
-                                <a href="javascript:void(0)" class="product-title">Problema:
-                                    <span class="label label-warning pull-right">Usuário</span>
-                                    <span class="label label-warning pull-right">Técnico</span>
-                                </a>
-                                <span class="product-description">Descrição</span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
-                    </ul>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                    <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
-                </div>
-                <!-- /.box-footer -->
-            </div>
-            <!-- /.box -->
-        </section>
-
-        <section class="col-lg-4">
-            <!-- solid sales graph -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Chamados em aberto</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+                    <!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
                     </div>
+                    <!-- /.box-footer -->
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <ul class="products-list product-list-in-box">
-                        <li class="item">
-                            <div class="">
-                                <a href="javascript:void(0)" class="product-title">Problema:
-                                    <span class="label label-warning pull-right">Usuário</span>
-                                    <span class="label label-warning pull-right">Técnico</span>
-                                </a>
-                                <span class="product-description">Descrição</span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
-                    </ul>
+                <!-- /.box -->
+            </section>
+
+            <section class="col-lg-4">
+                <!-- solid sales graph -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chamados em Atendimento</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="">
+                                    <a href="javascript:void(0)" class="product-title">Problema:
+                                        <span class="label label-warning pull-right">Usuário</span>
+                                        <span class="label label-warning pull-right">Técnico</span>
+                                    </a>
+                                    <span class="product-description">Descrição</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                    </div>
+                    <!-- /.box-footer -->
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                    <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                <!-- /.box -->
+            </section>
+
+            <section class="col-lg-4">
+                <!-- solid sales graph -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chamados Finalizados</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="">
+                                    <a href="javascript:void(0)" class="product-title">Problema:
+                                        <span class="label label-warning pull-right">Usuário</span>
+                                        <span class="label label-warning pull-right">Técnico</span>
+                                    </a>
+                                    <span class="product-description">Descrição</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                    </div>
+                    <!-- /.box-footer -->
                 </div>
-                <!-- /.box-footer -->
-            </div>
-            <!-- /.box -->
-        </section>
+                <!-- /.box -->
+            </section>
+
+            <section class="col-lg-4">
+                <!-- solid sales graph -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chamados Cancelados</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="">
+                                    <a href="javascript:void(0)" class="product-title">Problema:
+                                        <span class="label label-warning pull-right">Usuário</span>
+                                        <span class="label label-warning pull-right">Técnico</span>
+                                    </a>
+                                    <span class="product-description">Descrição</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.box -->
+            </section>
+        </div>
         {% endif %}
 
 
@@ -140,13 +176,13 @@
         {% endif %}
 
         <div class="row">
-            <!-- Left col -->
-            {{ render(controller('AppBundle:Indicador:balancoAnual')) }}
-
-            <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            {{ render(controller('AppBundle:Indicador:chamadoAbertos')) }}
-
             {% if is_granted('ROLE_ADMIN') %}
+                <!-- Left col -->
+                {{ render(controller('AppBundle:Indicador:balancoAnual')) }}
+
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                {{ render(controller('AppBundle:Indicador:chamadoAbertos')) }}
+
                 {{ render(controller('AppBundle:Indicador:chamadoUnidade')) }}
                 {{ render(controller('AppBundle:Indicador:topProblema')) }}
             {% endif %}
@@ -164,6 +200,18 @@
             var b = Math.floor(Math.random() * 255);
             return "rgb(" + r + "," + g + "," + b + ")";
         };
+
+        // Donut chart
+        if($('#sales-chart').length){
+            //Donut Chart
+            var donut = new Morris.Donut({
+                element: 'sales-chart',
+                resize: true,
+                colors: ["#3c8dbc", "#f56954", "#00a65a", "#dbbf58"],
+                data: $('#sales-chart').data('chart'),
+                hideHover: 'auto'
+            });
+        }
 
         /* Morris.js Charts */
         // Sales chart
@@ -220,26 +268,14 @@
             gridTextSize: 10
         });*/
 
-        // Donut chart
-        if($('#sales-chart').length){
-            //Donut Chart
-            var donut = new Morris.Donut({
-                element: 'sales-chart',
-                resize: true,
-                colors: ["#3c8dbc", "#f56954", "#00a65a"],
-                data: $('#sales-chart').data('chart'),
-                hideHover: 'auto'
-            });
-        }
-
         var bar = new Morris.Bar({
             element: 'bar-chart',
             resize: true,
             data: $('#bar-chart').data('chart'),
-            barColors: ['#00a65a', '#f56954'],
+            barColors: ['#4c4cff', '#c5b358', '#7bafd4', '#00a65a', '#f56954'],
             xkey: 'month',
-            ykeys: ['abertos', 'fechados'],
-            labels: ['Abertos', 'Fechados'],
+            ykeys: ['total', 'abertos', 'atendimentos', 'fechados', 'cancelados'],
+            labels: ['Total de Chamados', 'Em Aberto', 'Em Atendimento', 'Finalizados', 'Cancelados'],
             hideHover: 'auto'
         });
 

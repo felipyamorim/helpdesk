@@ -805,4 +805,10 @@ $(document).ready(function () {
 
   $('.telefone').mask(SPMaskBehavior, spOptions);
   $('.ramal').mask('00000');
+
+  // reset form
+  $("button:reset").click(function(e) {
+    e.preventDefault();
+    $(this).closest('form').find('input, select, input[type=checkbox]').val('');
+  });
 });

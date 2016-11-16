@@ -18,7 +18,7 @@ class UsuarioType extends AbstractType
         $builder
             ->add('nome')
             ->add('email')
-            ->add('senha')
+            ->add('senha', Type\PasswordType::class)
             ->add('perfil')
             ->add('unidade')
             ->add('telefones', Type\CollectionType::class, array(

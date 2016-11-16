@@ -16,12 +16,17 @@ class UsuarioFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUsuario', Filters\NumberFilterType::class)
+            ->add('idUsuario', Filters\NumberFilterType::class, array(
+                'label' => 'Id'
+            ))
             ->add('nome', Filters\TextFilterType::class)
             ->add('email', Filters\TextFilterType::class)
-            ->add('senha', Filters\TextFilterType::class)
-            ->add('perfil', Filters\TextFilterType::class)
-            ->add('unidade', Filters\TextFilterType::class)
+            ->add('perfil', Filters\EntityFilterType::class, array(
+                'class' => 'AppBundle\Entity\Perfil'
+            ))
+            ->add('unidade', Filters\EntityFilterType::class, array(
+                'class' => 'AppBundle\Entity\Unidade'
+            ))
         ;
     }
     
@@ -31,6 +36,7 @@ class UsuarioFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'horizontal' => false,
             'data_class' => 'AppBundle\Entity\Usuario',
             'csrf_protection'   => false,
             'validation_groups' => array('filtering'), // avoid NotBlank() constraint-related message

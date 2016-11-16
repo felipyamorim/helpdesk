@@ -12,8 +12,10 @@ class IndicadorController extends Controller
     public function resolvidoAbertoAction()
     {
         $data = array(
-            array('label' => "Abertos", 'value' => 12),
-            array('label' => "Resolvidos", 'value' => 30)
+            array('label' => "Em Aberto", 'value' => 12),
+            array('label' => "Em Atendimento", 'value' => 30),
+            array('label' => "Fechados", 'value' => 30),
+            array('label' => "Cancelados", 'value' => 30)
         );
 
         return $this->render('AppBundle:Indicador:resolvido_aberto.html.twig', array('data' => $data));

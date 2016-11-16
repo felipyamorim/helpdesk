@@ -200,25 +200,27 @@
                         <li><a href="{{ path('chamado_index') }}">Consultar Chamado</a></li>
                     </ul>
                 </li>
-                <li class="header">Gerencial</li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-file-text"></i> <span>Relatório</span>
-                        <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#">Chamados em Aberto</a></li>
-                        <li><a href="#">Chamados Atendidos</a></li>
-                        <li><a href="#">Atendimento por Técnico</a></li>
-                        <li><a href="#">Atendimento por Problema</a></li>
-                    </ul>
-                </li>
-                <li class="header">Administração</li>
-                <li><a href="{{ path('admin_chamado_index') }}"><i class="fa fa-list-alt"></i> <span>Chamado</span></a></li>
-                <li><a href="{{ path('admin_usuario_index') }}"><i class="fa fa-users"></i> <span>Usuário</span></a></li>
-                <li><a href="{{ path('admin_problema_index') }}"><i class="fa fa-question-circle-o"></i> <span>Problema</span></a></li>
-                <li><a href="{{ path('admin_unidade_index') }}"><i class="fa fa-building-o"></i> <span>Unidade</span></a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="header">Gerencial</li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-file-text"></i> <span>Relatório</span>
+                            <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#">Chamados em Aberto</a></li>
+                            <li><a href="#">Chamados Atendidos</a></li>
+                            <li><a href="#">Atendimento por Técnico</a></li>
+                            <li><a href="#">Atendimento por Problema</a></li>
+                        </ul>
+                    </li>
+                    <li class="header">Administração</li>
+                    <li><a href="{{ path('admin_chamado_index') }}"><i class="fa fa-list-alt"></i> <span>Chamado</span></a></li>
+                    <li><a href="{{ path('admin_usuario_index') }}"><i class="fa fa-users"></i> <span>Usuário</span></a></li>
+                    <li><a href="{{ path('admin_problema_index') }}"><i class="fa fa-question-circle-o"></i> <span>Problema</span></a></li>
+                    <li><a href="{{ path('admin_unidade_index') }}"><i class="fa fa-building-o"></i> <span>Unidade</span></a></li>
+                {% endif %}
             </ul>
         </section>
     </aside>

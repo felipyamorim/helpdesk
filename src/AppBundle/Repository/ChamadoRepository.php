@@ -13,23 +13,26 @@ class ChamadoRepository extends EntityRepository
     }
 
     public function porcentagemChamados(){
-        return $this->getEntityManager()
-            ->getConnection()
-            ->query('select count(c1.idChamado) as total, (select count(c2.idChamado) from chamado c2 where c2.status is not null) as total_fechados from chamado c1')
-            ->fetch();
+        return $this->createQueryBuilder('c')
+            ->select('count(c.idChamado) as total')
+            ->addSelect('(select count(c1.idChamado) from AppBundle:Chamado c1 where c1.status = 3) as total_fechados')
+            ->getQuery()
+            ->getResult();
     }
 
     public function pendentesChamados(){
-        return $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('c');
+        return $qb
             ->select('count(c.idChamado)')
-            ->where('c.status is null')
+            ->where($qb->expr()->notIn('c.status', array(3,4)))
             ->getQuery()
             ->getSingleScalarResult();
     }
 
     public function listarChamadosPendentes(){
-        return $this->createQueryBuilder('c')
-            ->where('c.status is null')
+        $qb = $this->createQueryBuilder('c');
+        return $qb
+            ->where($qb->expr()->notIn('c.status', array(3,4)))
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
@@ -39,8 +42,11 @@ class ChamadoRepository extends EntityRepository
 
         $sql = 'SELECT 
                     m.month,
-                    (SELECT count(idChamado) from chamado where month(data) = m.month and status is null) as abertos,
-                    (SELECT count(idChamado) from chamado where month(data) = m.month and status is not null) as fechados
+                    (SELECT count(idChamado) from chamado where month(data) = m.month) as total,
+                    (SELECT count(idChamado) from chamado where month(data) = m.month and status = 1) as abertos,
+                    (SELECT count(idChamado) from chamado where month(data) = m.month and status = 2) as atendimentos,
+                    (SELECT count(idChamado) from chamado where month(data) = m.month and status = 3) as fechados,
+                    (SELECT count(idChamado) from chamado where month(data) = m.month and status = 4) as cancelados
                 FROM
                 (
                     SELECT (month(CURDATE())) AS MONTH 

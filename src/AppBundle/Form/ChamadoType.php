@@ -33,7 +33,6 @@ class ChamadoType extends AbstractType
             ))
             ->add('usuario')
             ->add('tecnico')
-
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

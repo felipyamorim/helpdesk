@@ -21,7 +21,7 @@
                         {{ form_start(filter_form, {"class" : "form-inline", "attr": {"novalidate": "novalidate"}}) }}
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 {{ form_row(filter_form.idUsuario) }}
                             </div>
 
@@ -34,7 +34,11 @@
                             </div>
 
                             <div class="col-md-3">
-                                {{ form_row(filter_form.senha) }}
+                                {{ form_row(filter_form.perfil) }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ form_row(filter_form.unidade) }}
                             </div>
 
                         </div>
@@ -73,9 +77,10 @@
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>Idusuario</th>
+                                <th>Id do Usuário</th>
                                 <th>Nome</th>
                                 <th>Email</th>
+                                <th>Unidade</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
@@ -87,6 +92,7 @@
                                     </td>
                                     <td>{{ usuario.nome }}</td>
                                     <td>{{ usuario.email }}</td>
+                                    <td>{{ usuario.unidade }}</td>
                                     <td>
 
                                         <div class="btn-toolbar" role="toolbar"><a
