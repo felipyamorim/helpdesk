@@ -71,20 +71,24 @@ class AdminChamadoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $chamado->setData(new \DateTime());
-
             /** @var UploadedFile $file */
             foreach ($chamado->getFiles() as $file){
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                $file->move($this->getParameter('anexo_directory').'/', $fileName);
+                if($file){
+                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                    $file->move($this->getParameter('anexo_directory').'/', $fileName);
 
-                $anexo = new Anexo();
-                $anexo->setCaminho($fileName);
-                $chamado->addAnexo($anexo);
-
+                    $anexo = new Anexo();
+                    $anexo->setCaminho($fileName);
+                    $chamado->addAnexo($anexo);
+                }
             }
 
             $em = $this->getDoctrine()->getManager();
+
+            // Adicionar status de em aberto para o chamado
+            $chamado->setStatus($em->getReference('AppBundle\Entity\Status', 1));
+            $chamado->setData(new \DateTime());
+
             $em->persist($chamado);
             $em->flush();
 

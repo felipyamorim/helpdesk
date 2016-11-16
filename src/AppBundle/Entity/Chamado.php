@@ -36,9 +36,12 @@ class Chamado
     private $data;
 
     /**
-     * @var integer
+     * @var Status
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="status", referencedColumnName="idStatus")
+     * })
      */
     private $status;
 
@@ -163,11 +166,11 @@ class Chamado
     /**
      * Set status
      *
-     * @param integer $status
+     * @param \AppBundle\Entity\Status $status
      *
      * @return Chamado
      */
-    public function setStatus($status)
+    public function setStatus(\AppBundle\Entity\Status $status = null)
     {
         $this->status = $status;
 
@@ -177,7 +180,7 @@ class Chamado
     /**
      * Get status
      *
-     * @return integer
+     * @return \AppBundle\Entity\Status
      */
     public function getStatus()
     {
