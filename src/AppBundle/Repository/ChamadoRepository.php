@@ -17,7 +17,7 @@ class ChamadoRepository extends EntityRepository
             ->select('count(c.idChamado) as total')
             ->addSelect('(select count(c1.idChamado) from AppBundle:Chamado c1 where c1.status = 3) as total_fechados')
             ->getQuery()
-            ->getResult();
+            ->getSingleResult();
     }
 
     public function pendentesChamados(){
