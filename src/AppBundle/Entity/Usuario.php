@@ -3,7 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Usuario
@@ -83,6 +85,21 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Telefone", mappedBy="usuario", cascade={"persist"})
      */
     private $telefones;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="foto", type="string", length=255)
+     */
+    private $foto;
+
+    /**
+     * @var UploadedFile
+     *
+     * @Assert\File(maxSize="1M", mimeTypes={"image/*"}, mimeTypesMessage="Formato de arquivo inválido, permitido apenas imagem.")
+     */
+    private $file;
 
     /**
      * Constructor
@@ -396,5 +413,45 @@ class Usuario implements UserInterface, \Serializable
     public function getTelefones()
     {
         return $this->telefones;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     *
+     * @return Usuario
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
     }
 }

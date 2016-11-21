@@ -21,8 +21,11 @@ class UsuarioType extends AbstractType
             ->add('senha', Type\PasswordType::class)
             ->add('perfil')
             ->add('unidade')
+            ->add('file', Type\FileType::class, array(
+                'required' => false,
+                'label' => 'Foto de Perfil',
+            ))
             ->add('telefones', Type\CollectionType::class, array(
-                //'label' => false,
                 'entry_type' => TelefoneType::class,
                 'allow_add' => true,
                 'allow_delete' => true,

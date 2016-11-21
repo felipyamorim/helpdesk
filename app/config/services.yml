@@ -10,3 +10,8 @@ services:
     security_authenticator:
         class: AppBundle\Security\SecurityAuthenticator
         arguments: ["@router", "@service_container"]
+    app.form.friend_message:
+        class: AppBundle\Form\ChamadoType
+        arguments: ['@security.token_storage']
+        tags:
+            - { name: form.type }

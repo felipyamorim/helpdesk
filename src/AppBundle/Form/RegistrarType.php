@@ -29,6 +29,9 @@ class RegistrarType extends AbstractType
                 'first_options'  => array('label' => 'Senha'),
                 'second_options' => array('label' => 'Repetir Senha'),
             ))
+            ->add('file', Type\FileType::class, array(
+                'label' => 'Foto de Perfil'
+            ))
             ->add('telefones', Type\CollectionType::class, array(
                 //'label' => false,
                 'entry_type' => TelefoneType::class,

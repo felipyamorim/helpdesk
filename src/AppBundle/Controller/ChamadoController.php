@@ -39,8 +39,6 @@ class ChamadoController extends Controller
             ->setParameter(':unidade', $this->getUser()->getUnidade())
             ->orderBy('c.prioridade',  'DESC');
 
-        //  dump($query);die;
-
         $form = $this->createForm(ChamadoFilterType::class);
 
         if ($request->request->has($form->getName())) {
@@ -115,26 +113,8 @@ class ChamadoController extends Controller
      */
     public function showAction(Chamado $chamado)
     {
-        return $this->render('AppBundle:AdminChamado:show.html.twig', array(
+        return $this->render('AppBundle:Chamado:show.html.twig', array(
             'chamado' => $chamado,
         ));
     }
-
-    /**
-     * Deletes a AdminChamado entity.
-     *
-     * @Route("/{id}/delete", name="chamado_delete")
-     * @Method("GET")
-     */
-    public function deleteAction(Request $request, Chamado $chamado)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($chamado);
-        $em->flush();
-
-        $this->addFlash('success', 'O registro foi deletado com sucesso!');
-
-        return $this->redirectToRoute('admin_chamado_index');
-    }
-
 }

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Usuario;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,10 +27,20 @@ class DefaultController extends Controller
     {
 
         $usuario = $this->getUser();
-        $editForm = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+        $editForm = $this->createForm('AppBundle\Form\RegistrarType', $usuario);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            /** @var UploadedFile $file */
+            if($file = $usuario->getFile()){
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('profile_directory').'/',
+                    $fileName
+                );
+                $usuario->setFoto($fileName);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
@@ -56,6 +67,16 @@ class DefaultController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            /** @var UploadedFile $file */
+            if($file = $usuario->getFile()){
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('profile_directory').'/',
+                    $fileName
+                );
+                $usuario->setFoto($fileName);
+            }
+
             $em = $this->getDoctrine()->getManager();
 
             $usuario->setPerfil($em->getReference('AppBundle\Entity\Perfil', 1));

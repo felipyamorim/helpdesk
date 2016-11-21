@@ -12,7 +12,7 @@ var paths = {
     styles: []
 };
 
-gulp.task('default', ['compress', 'sass', 'minify'], function() {
+gulp.task('default', ['compress', 'sass', 'minify', 'image'], function() {
     return gutil.log('Gulp is running!');
 });
 
@@ -39,4 +39,9 @@ gulp.task('minify', function () {
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./web/dist/css/'));
+});
+
+gulp.task('image', function(){
+   return gulp.src('./app/Resources/assets/img/**')
+       .pipe(gulp.dest('./web/dist/img'))
 });

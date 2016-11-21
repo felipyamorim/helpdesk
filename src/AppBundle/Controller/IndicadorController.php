@@ -119,8 +119,18 @@ class IndicadorController extends Controller
     }
 
     public function chamadoAbertosAction(){
+
+        $unidade = null;
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        if($user->getPerfil() == $em->getReference('AppBundle:Perfil', 1)){
+            $unidade = $user->getUnidade();
+        }
+
+        $chamados = $em->getRepository('AppBundle:Chamado')->listarChamadosPendentes($unidade);
+
         return $this->render('@App/Indicador/chamados_abertos.html.twig', array(
-            'chamados' => $this->getDoctrine()->getRepository('AppBundle:Chamado')->listarChamadosPendentes()
+            'chamados' => $chamados
         ));
     }
 }

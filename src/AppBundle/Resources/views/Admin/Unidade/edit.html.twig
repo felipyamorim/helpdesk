@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Unidade
+            <small>editar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Unidade</li>
+            <li class="active">Editar</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="title">Editar Unidade</h4>
+                    </div>
+                    {{ form_start(edit_form, {"attr": {"novalidate": "novalidate"}}) }}
+                    <div class="panel-body">
+                        {{ form_widget(edit_form) }}
+                    </div>
+                    <div class="panel-footer">
+                        <div class="btn-toolbar" role="toolbar">
+                            <a href="{{ path('admin_unidade_index') }}" class="btn btn-default btn-group" role="group">
+                                <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
+                            </a> <a href="{{ path('admin_unidade_delete', { 'id': unidade.idUnidade }) }}"
+                                    class="btn btn-danger btn-group" role="group" title="Deletar"
+                                    data-confirm="Tem certeza de que deseja remover este registro?">
+                                <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
+                            </a>
+                            <button type="submit" class="btn btn-success"
+                                    data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Salvando Alterações">
+                                <i class="fa fa-pencil"></i> <span class="hidden-xs">Salvar Alterações</span>
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

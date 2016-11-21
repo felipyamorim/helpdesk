@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Chamado
+            <small>visualizar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Chamado</li>
+            <li class="active">Visualizar</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="title">Chamado #{{ chamado.idChamado }} </h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Problema</th>
+                                <td>{{ chamado.problema }}</td>
+                            </tr>
+                            <tr>
+                                <th>Descrição</th>
+                                <td>{{ chamado.descricao|raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Data</th>
+                                <td>{% if chamado.data %}{{ chamado.data|date('d/m/Y H:i:s') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>
+                                    {% if chamado.status is not null %}
+                                        {{ chamado.status }}
+                                    {% else %}
+                                        Chamado em Aberto
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Prioridade</th>
+                                <td>
+                                    {% if chamado.prioridade == 1 %}
+                                        Baixa
+                                    {% elseif chamado.prioridade == 2 %}
+                                        Média
+                                    {% elseif chamado.prioridade == 3 %}
+                                        Alta
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Usuário</th>
+                                <td>
+                                    {{ chamado.usuario }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Técnico Responsável</th>
+                                <td>
+                                    {{ chamado.tecnico|default }}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <h1>Anexos:</h1>
+                        <ul>
+                            {% for anexo in chamado.anexos %}
+                                <li><a href="{{ asset('uploads/' ~ anexo.caminho) }}" target="_blank">{{ anexo.caminho }}</a></li>
+                            {% else %}
+                                <li>Nenhum anexo enviado.</li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{ path('admin_chamado_index') }}" class="btn btn-default btn-group" role="group">
+                            <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
+                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin_chamado_edit', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-success btn-group" role="group">
+                                <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
+                            </a>
+                            <a href="{{ path('admin_chamado_delete', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-danger btn-group" role="group" title="Deletar"
+                               data-confirm="Tem certeza de que deseja remover este registro?">
+                                <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
+                            </a>
+                        {% elseif is_granted('ROLE_TECNICO') %}
+                            <a href="{{ path('admin_chamado_edit', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-success btn-group" role="group">
+                                <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Atender Chamado</span>
+                            </a>
+                            <a href="{{ path('admin_chamado_delete', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-warning btn-group" role="group" title="Finalizar"
+                               data-confirm="Tem certeza de que deseja finalizar este chamado?">
+                                <i class="fa fa-check"></i> <span class="hidden-xs">Finalizar Chamado</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

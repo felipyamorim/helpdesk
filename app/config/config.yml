@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: pt_BR
     anexo_directory: '%kernel.root_dir%/../web/uploads/'
+    profile_directory: '%kernel.root_dir%/../web/uploads/profile/'
 
 framework:
     #esi:             ~

@@ -316,13 +316,14 @@ function _init() {
       //Enable sidebar toggle
       $(document).on('click', toggleBtn, function (e) {
         e.preventDefault();
-
         //Enable sidebar push menu
         if ($(window).width() > (screenSizes.sm - 1)) {
           if ($("body").hasClass('sidebar-collapse')) {
             $("body").removeClass('sidebar-collapse').trigger('expanded.pushMenu');
+            console.log('1');
           } else {
             $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
+            console.log('colapse');
           }
         }
         //Handle sidebar push menu for small screens
@@ -811,4 +812,20 @@ $(document).ready(function () {
     e.preventDefault();
     $(this).closest('form').find('input, select, input[type=checkbox]').val('');
   });
+});
+
+$(function ($) {
+  var $body = $('body');
+  // On click, capture state and save it in localStorage
+  $($.AdminLTE.options.sidebarToggleSelector).click(function () {
+    localStorage.setItem('sidebar', $body.hasClass('sidebar-collapse') ? 1 : 0);
+  });
+
+  // On ready, read the set state and collapse if needed
+  if (localStorage.getItem('sidebar') === '0') {
+    $body.addClass('disable-animations sidebar-collapse');
+    requestAnimationFrame(function () {
+      $body.removeClass('disable-animations');
+    });
+  }
 });

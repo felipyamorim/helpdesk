@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Usuario
@@ -44,7 +45,7 @@ class Usuario implements UserInterface, \Serializable
     private $senha;
 
     /**
-     * @var \Perfil
+     * @var Perfil
      *
      * @ORM\OneToOne(targetEntity="Perfil")
      * @ORM\JoinColumns({
@@ -80,9 +81,25 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var Telefone
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Telefone", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Telefone", mappedBy="usuario", cascade={"persist"})
      */
     private $telefones;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="foto", type="string", length=255)
+     */
+    private $foto;
+
+    /**
+     * @var string
+     *
+     * @Assert\File(maxSize="1M", mimeTypes={"image/*"}, mimeTypesMessage="Formato de arquivo inválido, permitido apenas imagem.")
+     */
+    private $file;
+
     /**
      * Constructor
      */
@@ -90,6 +107,12 @@ class Usuario implements UserInterface, \Serializable
     {
         $this->chamadosUsuario = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chamadosTecnicos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->telefones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getNome();
     }
 
     /**
@@ -307,7 +330,7 @@ class Usuario implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USUARIO');
+        return array($this->getPerfil()->getRole());
     }
 
     public function getPassword()
@@ -354,4 +377,64 @@ class Usuario implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
+
+    /**
+     * Add telefone
+     *
+     * @param \AppBundle\Entity\Telefone $telefone
+     *
+     * @return Usuario
+     */
+    public function addTelefone(\AppBundle\Entity\Telefone $telefone)
+    {
+        $telefone->setUsuario($this);
+
+        $this->telefones[] = $telefone;
+
+        return $this;
+    }
+
+    /**
+     * Remove telefone
+     *
+     * @param \AppBundle\Entity\Telefone $telefone
+     */
+    public function removeTelefone(\AppBundle\Entity\Telefone $telefone)
+    {
+        $this->telefones->removeElement($telefone);
+    }
+
+    /**
+     * Get telefones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTelefones()
+    {
+        return $this->telefones;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     *
+     * @return Usuario
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
 }

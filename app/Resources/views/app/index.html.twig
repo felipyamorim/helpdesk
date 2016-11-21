@@ -12,157 +12,17 @@
     </section>
 
     <section class="content">
-
-        {% if is_granted('ROLE_USUARIO') %}
-            {{ render(controller('AppBundle:Indicador:resolvidoAberto')) }}
-        {% endif %}
-
-        {% if is_granted('ROLE_USUARIO') %}
         <div class="row">
-            <section class="col-lg-4">
-                <!-- solid sales graph -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Chamados em aberto</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <ul class="products-list product-list-in-box">
-                            <li class="item">
-                                <div class="">
-                                    <a href="javascript:void(0)" class="product-title">Problema:
-                                        <span class="label label-warning pull-right">Usuário</span>
-                                        <span class="label label-warning pull-right">Técnico</span>
-                                    </a>
-                                    <span class="product-description">Descrição</span>
-                                </div>
-                            </li>
-                            <!-- /.item -->
-                        </ul>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer text-center">
-                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
-                    </div>
-                    <!-- /.box-footer -->
-                </div>
-                <!-- /.box -->
-            </section>
 
-            <section class="col-lg-4">
-                <!-- solid sales graph -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Chamados em Atendimento</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <ul class="products-list product-list-in-box">
-                            <li class="item">
-                                <div class="">
-                                    <a href="javascript:void(0)" class="product-title">Problema:
-                                        <span class="label label-warning pull-right">Usuário</span>
-                                        <span class="label label-warning pull-right">Técnico</span>
-                                    </a>
-                                    <span class="product-description">Descrição</span>
-                                </div>
-                            </li>
-                            <!-- /.item -->
-                        </ul>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer text-center">
-                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
-                    </div>
-                    <!-- /.box-footer -->
-                </div>
-                <!-- /.box -->
-            </section>
+            {% if is_granted('ROLE_USUARIO') %}
+                {{ render(controller('AppBundle:Indicador:resolvidoAberto')) }}
 
-            <section class="col-lg-4">
-                <!-- solid sales graph -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Chamados Finalizados</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <ul class="products-list product-list-in-box">
-                            <li class="item">
-                                <div class="">
-                                    <a href="javascript:void(0)" class="product-title">Problema:
-                                        <span class="label label-warning pull-right">Usuário</span>
-                                        <span class="label label-warning pull-right">Técnico</span>
-                                    </a>
-                                    <span class="product-description">Descrição</span>
-                                </div>
-                            </li>
-                            <!-- /.item -->
-                        </ul>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer text-center">
-                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
-                    </div>
-                    <!-- /.box-footer -->
-                </div>
-                <!-- /.box -->
-            </section>
+                {{ render(controller('AppBundle:Indicador:chamadoAbertos')) }}
+            {% endif %}
 
-            <section class="col-lg-4">
-                <!-- solid sales graph -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Chamados Cancelados</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <ul class="products-list product-list-in-box">
-                            <li class="item">
-                                <div class="">
-                                    <a href="javascript:void(0)" class="product-title">Problema:
-                                        <span class="label label-warning pull-right">Usuário</span>
-                                        <span class="label label-warning pull-right">Técnico</span>
-                                    </a>
-                                    <span class="product-description">Descrição</span>
-                                </div>
-                            </li>
-                            <!-- /.item -->
-                        </ul>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer text-center">
-                        <a href="javascript:void(0)" class="uppercase">Ver todos os chamados</a>
-                    </div>
-                    <!-- /.box-footer -->
-                </div>
-                <!-- /.box -->
-            </section>
         </div>
-        {% endif %}
 
-
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECNICO') %}
         <div class="row">
             {{ render(controller('AppBundle:Indicador:countChamados')) }}
             <!-- ./col -->
@@ -176,7 +36,7 @@
         {% endif %}
 
         <div class="row">
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECNICO')  %}
                 <!-- Left col -->
                 {{ render(controller('AppBundle:Indicador:balancoAnual')) }}
 
@@ -268,45 +128,50 @@
             gridTextSize: 10
         });*/
 
-        var bar = new Morris.Bar({
-            element: 'bar-chart',
-            resize: true,
-            data: $('#bar-chart').data('chart'),
-            barColors: ['#4c4cff', '#c5b358', '#7bafd4', '#00a65a', '#f56954'],
-            xkey: 'month',
-            ykeys: ['total', 'abertos', 'atendimentos', 'fechados', 'cancelados'],
-            labels: ['Total de Chamados', 'Em Aberto', 'Em Atendimento', 'Finalizados', 'Cancelados'],
-            hideHover: 'auto'
-        });
+        if($('#bar-chart').length) {
+            var bar = new Morris.Bar({
+                element: 'bar-chart',
+                resize: true,
+                data: $('#bar-chart').data('chart'),
+                barColors: ['#4c4cff', '#c5b358', '#7bafd4', '#00a65a', '#f56954'],
+                xkey: 'month',
+                ykeys: ['total', 'abertos', 'atendimentos', 'fechados', 'cancelados'],
+                labels: ['Total de Chamados', 'Em Aberto', 'Em Atendimento', 'Finalizados', 'Cancelados'],
+                hideHover: 'auto'
+            });
+        }
 
         //-------------
         //- Chamado x Unidades CHART -
         //-------------
-        var $pieChart = $("#pieChart"),
-            data = $pieChart.data('chart');
+        if($("#pieChart").length){
+            var $pieChart = $("#pieChart"),
+                    data = $pieChart.data('chart');
 
-        data.datasets[0].backgroundColor.forEach(function(element, index, array){
-            array[index] = dynamicColors();
-        });
+            data.datasets[0].backgroundColor.forEach(function(element, index, array){
+                array[index] = dynamicColors();
+            });
 
-        var pieChart = new Chart($("#pieChart"), {
-            type: 'pie',
-            data: data
-        });
-
+            var pieChart = new Chart($("#pieChart"), {
+                type: 'pie',
+                data: data
+            });
+        }
         //-------------
         //- Top 10 Problemas
         //-------------
-        var $topProblemas = $("#top-problemas-chart"),
-            data = $topProblemas.data('chart');
+        if($("#top-problemas-chart").length){
+            var $topProblemas = $("#top-problemas-chart"),
+                    data = $topProblemas.data('chart');
 
-        data.datasets[0].backgroundColor.forEach(function(element, index, array){
-            array[index] = dynamicColors();
-        });
+            data.datasets[0].backgroundColor.forEach(function(element, index, array){
+                array[index] = dynamicColors();
+            });
 
-        var myChart2 = new Chart($topProblemas, {
-            type: 'pie',
-            data: data
-        });
+            var myChart2 = new Chart($topProblemas, {
+                type: 'pie',
+                data: data
+            });
+        }
     </script>
 {% endblock %}

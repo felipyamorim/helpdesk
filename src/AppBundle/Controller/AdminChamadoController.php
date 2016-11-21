@@ -25,7 +25,7 @@ class AdminChamadoController extends Controller
      *
      * @Route("/", name="admin_chamado_index", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Method({"GET","POST"})
-     * @Template()
+     * @Template("@App/Admin/Chamado/index.html.twig")
      */
     public function indexAction(Request $request, $page)
     {
@@ -62,7 +62,7 @@ class AdminChamadoController extends Controller
      *
      * @Route("/new", name="admin_chamado_new")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Chamado/new.html.twig")
      */
     public function newAction(Request $request)
     {
@@ -108,7 +108,7 @@ class AdminChamadoController extends Controller
      *
      * @Route("/{id}", name="admin_chamado_show")
      * @Method("GET")
-     * @Template()
+     * @Template("@App/Admin/Chamado/show.html.twig")
      */
     public function showAction(Chamado $chamado)
     {
@@ -123,7 +123,7 @@ class AdminChamadoController extends Controller
      *
      * @Route("/{id}/edit", name="admin_chamado_edit")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Chamado/edit.html.twig")
      */
     public function editAction(Request $request, Chamado $chamado)
     {

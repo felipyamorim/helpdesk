@@ -23,7 +23,7 @@ class UsuarioController extends Controller
      *
      * @Route("/", name="admin_usuario_index", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Method({"GET","POST"})
-     * @Template()
+     * @Template("@App/Admin/Usuario/index.html.twig")
      */
     public function indexAction(Request $request, $page)
     {
@@ -60,7 +60,7 @@ class UsuarioController extends Controller
      *
      * @Route("/new", name="admin_usuario_new")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Usuario/new.html.twig")
      */
     public function newAction(Request $request)
     {
@@ -91,7 +91,7 @@ class UsuarioController extends Controller
      *
      * @Route("/{id}", name="admin_usuario_show")
      * @Method("GET")
-     * @Template()
+     * @Template("@App/Admin/Usuario/show.html.twig")
      */
     public function showAction(Usuario $usuario)
     {
@@ -105,7 +105,7 @@ class UsuarioController extends Controller
      *
      * @Route("/{id}/edit", name="admin_usuario_edit")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Usuario/edit.html.twig")
      */
     public function editAction(Request $request, Usuario $usuario)
     {
@@ -113,6 +113,15 @@ class UsuarioController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            if($file = $usuario->getFile()){
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('profile_directory').'/',
+                    $fileName
+                );
+                $usuario->setFoto($fileName);
+            }
 
             $usuario->setSenha(hash('sha512', $usuario->getSenha()));
             $em = $this->getDoctrine()->getManager();

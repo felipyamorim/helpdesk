@@ -23,7 +23,7 @@ class UnidadeController extends Controller
      *
      * @Route("/", name="admin_unidade_index", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Method({"GET","POST"})
-     * @Template()
+     * @Template("@App/Admin/Unidade/index.html.twig")
      */
     public function indexAction(Request $request, $page)
     {
@@ -60,7 +60,7 @@ class UnidadeController extends Controller
      *
      * @Route("/new", name="admin_unidade_new")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Unidade/new.html.twig")
      */
     public function newAction(Request $request)
     {
@@ -89,7 +89,7 @@ class UnidadeController extends Controller
      *
      * @Route("/{id}", name="admin_unidade_show")
      * @Method("GET")
-     * @Template()
+     * @Template("@App/Admin/Unidade/show.html.twig")
      */
     public function showAction(Unidade $unidade)
     {
@@ -104,7 +104,7 @@ class UnidadeController extends Controller
      *
      * @Route("/{id}/edit", name="admin_unidade_edit")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Unidade/edit.html.twig")
      */
     public function editAction(Request $request, Unidade $unidade)
     {

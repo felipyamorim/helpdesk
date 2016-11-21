@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -29,13 +30,21 @@ class ChamadoRepository extends EntityRepository
             ->getSingleScalarResult();
     }
 
-    public function listarChamadosPendentes(){
+    public function listarChamadosPendentes($unidade = null){
         $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where($qb->expr()->notIn('c.status', array(3,4)));
+            if($unidade) {
+                $qb
+                    ->join('c.usuario', 'u')
+                    ->andWhere('u.unidade = :unidade')
+                    ->setParameter(':unidade', $unidade);
+            }
         return $qb
-            ->where($qb->expr()->notIn('c.status', array(3,4)))
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
+
     }
 
     public function balancoChamados(){

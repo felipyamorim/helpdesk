@@ -23,7 +23,7 @@ class ProblemaController extends Controller
      *
      * @Route("/", name="admin_problema_index", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Method({"GET","POST"})
-     * @Template()
+     * @Template("@App/Admin/Problema/index.html.twig")
      */
     public function indexAction(Request $request, $page)
     {
@@ -60,7 +60,7 @@ class ProblemaController extends Controller
      *
      * @Route("/new", name="admin_problema_new")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Problema/new.html.twig")
      */
     public function newAction(Request $request)
     {
@@ -89,7 +89,7 @@ class ProblemaController extends Controller
      *
      * @Route("/{id}", name="admin_problema_show")
      * @Method("GET")
-     * @Template()
+     * @Template("@App/Admin/Problema/show.html.twig")
      */
     public function showAction(Problema $problema)
     {
@@ -104,7 +104,7 @@ class ProblemaController extends Controller
      *
      * @Route("/{id}/edit", name="admin_problema_edit")
      * @Method({"GET", "POST"})
-     * @Template()
+     * @Template("@App/Admin/Problema/edit.html.twig")
      */
     public function editAction(Request $request, Problema $problema)
     {
