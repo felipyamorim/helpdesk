@@ -89,6 +89,13 @@ class Chamado
      */
     private $anexos;
 
+    /**
+     * @var Comentario
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comentario", mappedBy="chamado", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $comentarios;
+
     private $files;
 
     /**
@@ -97,6 +104,7 @@ class Chamado
     public function __construct()
     {
         $this->anexos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function setIdChamado($id)
@@ -333,5 +341,41 @@ class Chamado
     public function getAnexos()
     {
         return $this->anexos;
+    }
+
+    /**
+     * Add comentario
+     *
+     * @param \AppBundle\Entity\Comentario $comentario
+     *
+     * @return Chamado
+     */
+    public function addComentario(\AppBundle\Entity\Comentario $comentario)
+    {
+        $comentario->setChamado($this);
+
+        $this->comentarios[] = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Remove comentario
+     *
+     * @param \AppBundle\Entity\Comentario $comentario
+     */
+    public function removeComentario(\AppBundle\Entity\Comentario $comentario)
+    {
+        $this->comentarios->removeElement($comentario);
+    }
+
+    /**
+     * Get comentarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Usuario;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -22,12 +23,12 @@ class DefaultController extends Controller
 
     /**
      * @Route("/perfil", name="edit_perfil")
+     * @Method({"GET","POST"})
      */
     public function editPerfilAction(Request $request)
     {
-
         $usuario = $this->getUser();
-        $editForm = $this->createForm('AppBundle\Form\RegistrarType', $usuario);
+        $editForm = $this->createForm('AppBundle\Form\PerfilType', $usuario);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -58,7 +59,8 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/registrar", name="usuario_registrar")s
+     * @Route("/registrar", name="usuario_registrar")
+     * @Method({"GET","POST"})
      */
     public function registerAction(Request $request)
     {
@@ -92,6 +94,35 @@ class DefaultController extends Controller
 
         return $this->render('security/registrar.html.twig', array(
             'edit_form' => $editForm->createView()
+        ));
+    }
+
+    /**
+     * @Route("/senha", name="edit_senha")
+     * @Method({"GET","POST"})
+     */
+    public function editSenhaAction(Request $request)
+    {
+        $usuario = $this->getUser();
+        $editForm = $this->createForm('AppBundle\Form\SenhaType', $usuario);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $usuario->setSenha(hash('sha512', $usuario->getPlainPassword()));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($usuario);
+            $em->flush();
+
+            $this->addFlash('success', 'Senha alterada com sucesso!');
+
+            return $this->redirectToRoute('edit_senha', array('id' => $usuario->getIdUsuario()));
+        }
+
+        return $this->render('app/senha.html.twig', array(
+            'usuario' => $usuario,
+            'edit_form' => $editForm->createView(),
         ));
     }
 

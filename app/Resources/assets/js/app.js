@@ -812,6 +812,11 @@ $(document).ready(function () {
     e.preventDefault();
     $(this).closest('form').find('input, select, input[type=checkbox]').val('');
   });
+
+  // Loading button
+  $("form").submit(function() {
+    $(this).find('button[type="submit"][data-loading-text]').button('loading');
+  });
 });
 
 $(function ($) {

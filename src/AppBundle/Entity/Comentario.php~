@@ -1,0 +1,58 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Anexo
+ *
+ * @ORM\Table(name="Comentario", indexes={@ORM\Index(name="fk_Anexo_Chamado1_idx", columns={"chamado"}), @ORM\Index(name="fk_Comentarios_Usuario1", columns={"usuario"})})
+ * @ORM\Entity
+ */
+class Comentario
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idComentario", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $idComentario;
+
+    /**
+     * @var Chamado
+     *
+     * @ORM\ManyToOne(targetEntity="Chamado", inversedBy="comentarios")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="chamado", referencedColumnName="idChamado")
+     * })
+     */
+    private $chamado;
+
+    /**
+     * @var Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuario", referencedColumnName="idUsuario")
+     * })
+     */
+    private $usuario;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="mensagem", type="text")
+     */
+    private $mensagem;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data", type="datetime")
+     */
+    private $data;
+}

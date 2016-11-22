@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Anexo;
+use AppBundle\Entity\Comentario;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -96,7 +97,7 @@ class ChamadoController extends Controller
 
             $this->addFlash('success', 'O chamado foi criado com sucesso!');
 
-            return $this->redirectToRoute('admin_chamado_show', array('id' => $chamado->getIdChamado()));
+            return $this->redirectToRoute('chamado_show', array('id' => $chamado->getIdChamado()));
         }
 
         return array(
@@ -109,12 +110,34 @@ class ChamadoController extends Controller
      * Finds and displays a AdminChamado entity.
      *
      * @Route("/{id}", name="chamado_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function showAction(Chamado $chamado)
+    public function showAction(Chamado $chamado, Request $request)
     {
+        $comentario = new Comentario();
+        $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comentario->setData(new \DateTime());
+            $comentario->setMensagem($request->get('comentario')['mensagem']);
+            $comentario->setUsuario($this->getUser());
+
+            $chamado->addComentario($comentario);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($chamado);
+            $em->flush();
+
+            $this->addFlash('success', 'Comentário adicionado com sucesso!');
+
+            return $this->redirectToRoute('chamado_show', array('id' => $chamado->getIdChamado()));
+        }
+
         return $this->render('AppBundle:Chamado:show.html.twig', array(
             'chamado' => $chamado,
+            'form' => $form->createView()
         ));
     }
 }

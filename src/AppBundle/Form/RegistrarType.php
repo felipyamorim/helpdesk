@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class RegistrarType extends AbstractType
 {
@@ -53,7 +54,12 @@ class RegistrarType extends AbstractType
                     ),
                 ),
                 'by_reference' => false
-            ));
+            ))
+            ->add('termsAccepted', Type\CheckboxType::class, array(
+                'mapped' => false,
+                'constraints' => new IsTrue(array('message' => 'Você deve aceitar os termos e condições de uso.')),
+                'label' => 'Eu aceito os <a href="#" id="termos">termos</a>'
+            ))
         ;
     }
     
@@ -63,7 +69,8 @@ class RegistrarType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Usuario'
+            'data_class' => 'AppBundle\Entity\Usuario',
+            'validation_groups' => array('Default', 'registrar')
         ));
     }
 }

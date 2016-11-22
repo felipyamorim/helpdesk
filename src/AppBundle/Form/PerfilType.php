@@ -4,12 +4,11 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
-class UsuarioType extends AbstractType
+class PerfilType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,20 +18,16 @@ class UsuarioType extends AbstractType
     {
         $builder
             ->add('nome')
-            ->add('email')
-            ->add('perfil', null, array(
-                'required' => true,
-                'placeholder' => 'Selecione o Perfil'
-            ))
             ->add('unidade', null, array(
                 'required' => true,
-                'placeholder' => 'Selecione a Unidade'
+                'placeholder' => 'Selecione sua Unidade'
             ))
+            ->add('email')
             ->add('file', Type\FileType::class, array(
-                'required' => false,
-                'label' => 'Foto de Perfil',
+                'label' => 'Foto de Perfil'
             ))
             ->add('telefones', Type\CollectionType::class, array(
+                //'label' => false,
                 'entry_type' => TelefoneType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -52,25 +47,8 @@ class UsuarioType extends AbstractType
                     ),
                 ),
                 'by_reference' => false
-            ));
+            ))
         ;
-
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $usuario = $event->getData();
-            $form = $event->getForm();
-
-            if (!$usuario || null === $usuario->getIdUsuario()) {
-
-                $form->add('senha', Type\RepeatedType::class, array(
-                    'type' => Type\PasswordType::class,
-                    'position' => array('after' => 'email'),
-                    'required' => true,
-                    'invalid_message' => 'As senhas não conferem, digite novamente.',
-                    'first_options'  => array('label' => 'Noca Senha'),
-                    'second_options' => array('label' => 'Confirmar Senha')
-                ));
-            }
-        });
     }
     
     /**
@@ -79,8 +57,7 @@ class UsuarioType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Usuario',
-            'validation_groups' => array('Default', 'cadastro_admin', 'registrar')
+            'data_class' => 'AppBundle\Entity\Usuario'
         ));
     }
 }

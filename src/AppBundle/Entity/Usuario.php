@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,14 +27,16 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="45")
      * @ORM\Column(name="nome", type="string", length=45, nullable=false)
      */
     private $nome;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="45")
      * @ORM\Column(name="email", type="string", length=45, nullable=false)
      */
     private $email;
@@ -41,6 +44,22 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var string
      *
+     * @UserPassword(groups={"alterar_senha"})
+     */
+    private $oldSenha;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank(groups={"alterar_senha"})
+     * @Assert\Length(min="8", max="16", groups={"alterar_senha"})
+     */
+    private $plainPassword;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(groups={"registrar"})
+     * @Assert\Length(min="8", max="16", groups={"registrar"})
      * @ORM\Column(name="senha", type="string", length=45, nullable=false)
      */
     private $senha;
@@ -48,6 +67,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var Perfil
      *
+     * @Assert\NotBlank(groups={"cadastro_admin"})
      * @ORM\OneToOne(targetEntity="Perfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="perfil", referencedColumnName="idPerfil")
@@ -58,6 +78,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var Unidade
      *
+     * @Assert\NotBlank()
      * @ORM\OneToOne(targetEntity="Unidade")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unidade", referencedColumnName="idUnidade")
@@ -85,7 +106,6 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Telefone", mappedBy="usuario", cascade={"persist"})
      */
     private $telefones;
-
 
     /**
      * @var string
@@ -186,6 +206,54 @@ class Usuario implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set oldSenha
+     *
+     * @param string $senha
+     *
+     * @return Usuario
+     */
+    public function setOldSenha($senha)
+    {
+        $this->oldSenha = $senha;
+
+        return $this;
+    }
+
+    /**
+     * Get OldSenha
+     *
+     * @return string
+     */
+    public function getOldSenha()
+    {
+        return $this->oldSenha;
+    }
+
+    /**
+     * Set plainPassword
+     *
+     * @param string $senha
+     *
+     * @return Usuario
+     */
+    public function setPlainPassword($senha)
+    {
+        $this->plainPassword = $senha;
+
+        return $this;
+    }
+
+    /**
+     * Get senha
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 
     /**
@@ -360,9 +428,7 @@ class Usuario implements UserInterface, \Serializable
             $this->idUsuario,
             $this->email,
             $this->nome,
-            $this->senha,
-            $this->perfil,
-            $this->unidade
+            $this->senha
         ));
     }
 
@@ -372,9 +438,7 @@ class Usuario implements UserInterface, \Serializable
             $this->idUsuario,
             $this->email,
             $this->nome,
-            $this->senha,
-            $this->perfil,
-            $this->unidade
+            $this->senha
             ) = unserialize($serialized);
     }
 

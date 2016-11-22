@@ -36,14 +36,7 @@
         {{ form_start(edit_form, {"attr": {"novalidate": "novalidate"}}) }}
             {{ form_widget(edit_form) }}
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> Eu aceito os <a href="#">termos</a>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-4">
+                <div class="col-xs-offset-8 col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
                 </div>
             </div>
@@ -63,9 +56,18 @@
 <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 <script src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"></script>
 <script src="{{ asset('plugins/jquery-mask-plugin/dist/jquery.mask.min.js') }}"></script>
+<script src="{{ asset('plugins/bootbox.js/bootbox.js') }}"></script>
 <script src="{{ asset('dist/js/app.min.js') }}"></script>
 <script>
     $(function () {
+        $('#termos').click(function(event){
+            event.preventDefault();
+            bootbox.dialog({
+                title: 'Termos e Condições de Uso',
+                message: '<p><i class="fa fa-spin fa-spinner"></i> Loading...</p>'
+            });
+        });
+
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
