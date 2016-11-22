@@ -31,6 +31,16 @@ class Unidade
     private $nome;
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->idUnidade;
+    }
+
+    /**
      * Get idUnidade
      *
      * @return integer

@@ -4,6 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
 
@@ -18,9 +20,14 @@ class UsuarioType extends AbstractType
         $builder
             ->add('nome')
             ->add('email')
-            ->add('senha', Type\PasswordType::class)
-            ->add('perfil')
-            ->add('unidade')
+            ->add('perfil', null, array(
+                'required' => true,
+                'placeholder' => 'Selecione o Perfil'
+            ))
+            ->add('unidade', null, array(
+                'required' => true,
+                'placeholder' => 'Selecione a Unidade'
+            ))
             ->add('file', Type\FileType::class, array(
                 'required' => false,
                 'label' => 'Foto de Perfil',
@@ -47,6 +54,17 @@ class UsuarioType extends AbstractType
                 'by_reference' => false
             ));
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $usuario = $event->getData();
+            $form = $event->getForm();
+
+            if (!$usuario || null === $usuario->getIdUsuario()) {
+                $form->add('senha', Type\PasswordType::class, array(
+                    'position' => array('after' => 'email')
+                ));
+            }
+        });
     }
     
     /**

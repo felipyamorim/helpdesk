@@ -56,7 +56,7 @@ class Usuario implements UserInterface, \Serializable
     private $perfil;
 
     /**
-     * @var \Unidade
+     * @var Unidade
      *
      * @ORM\OneToOne(targetEntity="Unidade")
      * @ORM\JoinColumns({

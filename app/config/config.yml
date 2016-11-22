@@ -106,3 +106,8 @@ knp_paginator:
     template:
         pagination: template/pagination/twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
         sortable: template/pagination/sortable_link.html.twig # sort link template
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     %kernel.root_dir%/../vendor/wemersonjanuario/wkhtmltopdf-windows/bin/64bit/wkhtmltopdf.exe

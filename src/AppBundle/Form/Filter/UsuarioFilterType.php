@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Filter;
 
+use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,13 +20,19 @@ class UsuarioFilterType extends AbstractType
             ->add('idUsuario', Filters\NumberFilterType::class, array(
                 'label' => 'Id'
             ))
-            ->add('nome', Filters\TextFilterType::class)
-            ->add('email', Filters\TextFilterType::class)
+            ->add('nome', Filters\TextFilterType::class, array(
+                'condition_pattern' => FilterOperands::STRING_CONTAINS
+            ))
+            ->add('email', Filters\TextFilterType::class, array(
+                'condition_pattern' => FilterOperands::STRING_CONTAINS
+            ))
             ->add('perfil', Filters\EntityFilterType::class, array(
-                'class' => 'AppBundle\Entity\Perfil'
+                'class' => 'AppBundle\Entity\Perfil',
+                'placeholder' => 'Selecione o Perfil',
             ))
             ->add('unidade', Filters\EntityFilterType::class, array(
-                'class' => 'AppBundle\Entity\Unidade'
+                'class' => 'AppBundle\Entity\Unidade',
+                'placeholder' => 'Selecione a Unidade'
             ))
         ;
     }
