@@ -110,4 +110,4 @@ knp_paginator:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     %kernel.root_dir%/../vendor/wemersonjanuario/wkhtmltopdf-windows/bin/64bit/wkhtmltopdf.exe
+        binary:     "%kernel.root_dir%/../vendor/wemersonjanuario/wkhtmltopdf-windows/bin/64bit/wkhtmltopdf.exe"

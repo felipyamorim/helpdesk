@@ -91,41 +91,11 @@
                             {% endfor %}
                         </ul>
 
-                        <div id="post-add-comment" class="">
-                            {{ form_start(form, {"attr": {"novalidate": "novalidate"}}) }}
-                            <fieldset>
-                                <h1>Adicionar Comentários:</h1>
-                                {{ form_widget(form) }}
-                                <div class="form-group">
-                                    <button class="btn btn-primary pull-right" type="submit">Comentar</button>
-                                </div>
-                            </fieldset>
-                            {{ form_end(form) }}
-                        </div>
-
-                        <h3>
-                            {% if chamado.comentarios|length > 0 %}
-                                {{ chamado.comentarios|length }} comentários
-                            {% else %}
-                                Nenhum comentário
-                            {% endif %}
-                        </h3>
-
-                        {% for comentario in chamado.comentarios %}
-                            <div class="row post-comment">
-                                <h4 class="col-sm-2">
-                                    <strong>{{ comentario.usuario }} {% if comentario.usuario == chamado.tecnico %}(Técnico){% endif %}</strong> Comentário em
-                                    <strong>{{ comentario.data|date('d/m/Y H:i:s') }}</strong>
-                                </h4>
-                                <div class="col-sm-9">
-                                    <p>{{ comentario.mensagem }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
+                        {% include 'AppBundle:Comentario:comentario.html.twig' %}
 
                     </div>
                     <div class="panel-footer">
-                        <a href="{{ path('admin_chamado_index') }}" class="btn btn-default btn-group" role="group">
+                        <a href="{{ path('chamado_index') }}" class="btn btn-default btn-group" role="group">
                             <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
                         </a>
                     </div>

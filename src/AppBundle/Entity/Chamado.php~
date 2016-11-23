@@ -36,6 +36,20 @@ class Chamado
     private $data;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dataFinalizado", type="datetime", nullable=false)
+     */
+    private $dataFinalizado;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dataCancelado", type="datetime", nullable=false)
+     */
+    private $dataCancelado;
+
+    /**
      * @var Status
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Status")
@@ -92,7 +106,7 @@ class Chamado
     /**
      * @var Comentario
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comentario", mappedBy="chamado")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comentario", mappedBy="chamado", cascade={"persist"}, orphanRemoval=true)
      */
     private $comentarios;
 
@@ -341,5 +355,65 @@ class Chamado
     public function getAnexos()
     {
         return $this->anexos;
+    }
+
+    /**
+     * Add comentario
+     *
+     * @param \AppBundle\Entity\Comentario $comentario
+     *
+     * @return Chamado
+     */
+    public function addComentario(\AppBundle\Entity\Comentario $comentario)
+    {
+        $comentario->setChamado($this);
+
+        $this->comentarios[] = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Remove comentario
+     *
+     * @param \AppBundle\Entity\Comentario $comentario
+     */
+    public function removeComentario(\AppBundle\Entity\Comentario $comentario)
+    {
+        $this->comentarios->removeElement($comentario);
+    }
+
+    /**
+     * Get comentarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
+    }
+
+    /**
+     * Set dataFinalizado
+     *
+     * @param \DateTime $dataFinalizado
+     *
+     * @return Chamado
+     */
+    public function setDataFinalizado($dataFinalizado)
+    {
+        $this->dataFinalizado = $dataFinalizado;
+
+        return $this;
+    }
+
+    /**
+     * Get dataFinalizado
+     *
+     * @return \DateTime
+     */
+    public function getDataFinalizado()
+    {
+        return $this->dataFinalizado;
     }
 }

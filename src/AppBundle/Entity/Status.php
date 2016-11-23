@@ -43,6 +43,14 @@ class Status
     }
 
     /**
+     * Set idstatus
+     */
+    public function getId()
+    {
+        return $this->idStatus;
+    }
+
+    /**
      * Get idStatus
      *
      * @return integer

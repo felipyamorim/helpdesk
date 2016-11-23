@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Anexo;
 use AppBundle\Entity\Comentario;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -183,6 +184,69 @@ class AdminChamadoController extends Controller
         $this->addFlash('success', 'O registro foi deletado com sucesso!');
 
         return $this->redirectToRoute('admin_chamado_index');
+    }
+
+    /**
+     * Atende um chamado.
+     *
+     * @Route("/{id}/atender", name="admin_chamado_atender")
+     * @Method("GET")
+     */
+    public function atenderAction(Request $request, Chamado $chamado)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $chamado->setStatus($em->getReference('AppBundle\Entity\Status', 2));
+        $em->persist($chamado);
+        $em->flush();
+
+        $this->addFlash('success', 'Chamado em atendimento!');
+
+        return $this->redirectToRoute('admin_chamado_show', array('id' => $chamado->getIdChamado()));
+    }
+
+    /**
+     * Finaliza um chamado.
+     *
+     * @Route("/{id}/finalizar", name="admin_chamado_finish")
+     * @Method("GET")
+     */
+    public function finalizarAction(Chamado $chamado)
+    {
+        if($chamado->getTecnico() != $this->getUser()){
+            throw new AccessDeniedException('Chamado já encontra-se em atendimento por outro técnico');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $chamado->setStatus($em->getReference('AppBundle\Entity\Status', 3));
+        $chamado->setDataFinalizado(new \DateTime());
+        $em->persist($chamado);
+        $em->flush();
+
+        $this->addFlash('success', 'Chamado finalizado com sucesso!');
+
+        return $this->redirectToRoute('admin_chamado_show', array('id' => $chamado->getIdChamado()));
+    }
+
+    /**
+     * Cancela um chamado.
+     *
+     * @Route("/{id}/cancelar", name="admin_chamado_cancel")
+     * @Method("GET")
+     */
+    public function cancelarAction(Chamado $chamado)
+    {
+        if($chamado->getTecnico() != $this->getUser()){
+            throw new AccessDeniedException('Chamado já encontra-se em atendimento por outro técnico');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $chamado->setStatus($em->getReference('AppBundle\Entity\Status', 4));
+        $em->persist($chamado);
+        $em->flush();
+
+        $this->addFlash('success', 'Chamado finalizado com sucesso!');
+
+        return $this->redirectToRoute('admin_chamado_show', array('id' => $chamado->getIdChamado()));
     }
 
 }

@@ -9,16 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class IndicadorController extends Controller
 {
 
-    public function resolvidoAbertoAction()
+    public function statusChamadosAction()
     {
-        $data = array(
-            array('label' => "Em Aberto", 'value' => 12),
-            array('label' => "Em Atendimento", 'value' => 30),
-            array('label' => "Fechados", 'value' => 30),
-            array('label' => "Cancelados", 'value' => 30)
-        );
-
-        return $this->render('AppBundle:Indicador:resolvido_aberto.html.twig', array('data' => $data));
+        return $this->render('AppBundle:Indicador:resolvido_aberto.html.twig', array(
+            'data' => $this->getDoctrine()
+                ->getRepository('AppBundle:Chamado')
+                ->statusChamados($this->getUser()->getUnidade())
+        ));
     }
 
     public function balancoAnualAction()

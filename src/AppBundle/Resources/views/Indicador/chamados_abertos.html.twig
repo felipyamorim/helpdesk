@@ -23,7 +23,7 @@
                             <a href="{{ path(route, {id: chamado.idChamado}) }}" class="product-title">{{ chamado.problema }}
                                 <span class="label label-{% if chamado.status.idStatus == 1 %}warning{% else %}info{% endif %} pull-right">{{ chamado.status }}</span>
                             </a>
-                            <span class="product-description">{{ chamado.descricao }}</span>
+                            <span class="product-description">{{ chamado.descricao|striptags }}</span>
                         </div>
                     </li>
                 {% else %}

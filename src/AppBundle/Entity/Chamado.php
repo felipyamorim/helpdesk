@@ -36,6 +36,20 @@ class Chamado
     private $data;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dataFinalizado", type="datetime", nullable=false)
+     */
+    private $dataFinalizado;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dataCancelado", type="datetime", nullable=false)
+     */
+    private $dataCancelado;
+
+    /**
      * @var Status
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Status")
@@ -377,5 +391,53 @@ class Chamado
     public function getComentarios()
     {
         return $this->comentarios;
+    }
+
+    /**
+     * Set dataFinalizado
+     *
+     * @param \DateTime $dataFinalizado
+     *
+     * @return Chamado
+     */
+    public function setDataFinalizado($dataFinalizado)
+    {
+        $this->dataFinalizado = $dataFinalizado;
+
+        return $this;
+    }
+
+    /**
+     * Get dataFinalizado
+     *
+     * @return \DateTime
+     */
+    public function getDataFinalizado()
+    {
+        return $this->dataFinalizado;
+    }
+
+    /**
+     * Set dataCancelado
+     *
+     * @param \DateTime $dataCancelado
+     *
+     * @return Chamado
+     */
+    public function setDataCancelado($dataCancelado)
+    {
+        $this->dataCancelado = $dataCancelado;
+
+        return $this;
+    }
+
+    /**
+     * Get dataCancelado
+     *
+     * @return \DateTime
+     */
+    public function getDataCancelado()
+    {
+        return $this->dataCancelado;
     }
 }

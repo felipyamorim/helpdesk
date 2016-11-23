@@ -77,10 +77,11 @@
                             <thead>
                             <tr>
                                 <th>Id do Chamado</th>
-                                <th>Descrição</th>
-                                <th>Data</th>
-                                <th>Status</th>
+                                <th>Problema</th>
                                 <th>Prioridade</th>
+                                <th>Unidade</th>
+                                <th>Data de Abertura</th>
+                                <th>Status</th>
                                 <th>Ação</th>
                             </tr>
                             </thead>
@@ -90,15 +91,7 @@
                                     <td>
                                         <a href="{{ path('admin_chamado_show', { 'id': chamado.idChamado }) }}">{{ chamado.idChamado }}</a>
                                     </td>
-                                    <td>{{ chamado.descricao }}</td>
-                                    <td>{% if chamado.data %}{{ chamado.data|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                    <td>
-                                        {% if chamado.status is not null %}
-                                            {{ chamado.status }}
-                                        {% else %}
-                                            Chamado em Aberto
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ chamado.problema }}</td>
                                     <td>
                                         {% if chamado.prioridade == 1 %}
                                             Baixa
@@ -106,6 +99,15 @@
                                             Média
                                         {% elseif chamado.prioridade == 3 %}
                                             Alta
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ chamado.usuario.unidade }}</td>
+                                    <td>{% if chamado.data %}{{ chamado.data|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>
+                                        {% if chamado.status is not null %}
+                                            {{ chamado.status }}
+                                        {% else %}
+                                            Chamado em Aberto
                                         {% endif %}
                                     </td>
                                     <td>

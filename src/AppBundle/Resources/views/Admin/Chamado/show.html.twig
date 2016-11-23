@@ -42,16 +42,17 @@
                                 <td>{{ chamado.descricao|raw }}</td>
                             </tr>
                             <tr>
-                                <th>Data</th>
+                                <th>Data de Abertura</th>
                                 <td>{% if chamado.data %}{{ chamado.data|date('d/m/Y H:i:s') }}{% endif %}</td>
                             </tr>
                             <tr>
                                 <th>Status</th>
                                 <td>
-                                    {% if chamado.status is not null %}
-                                        {{ chamado.status }}
-                                    {% else %}
-                                        Chamado em Aberto
+                                    {{ chamado.status }}
+                                    {% if chamado.status.idStatus == 3 %}
+                                        em {{ chamado.dataFinalizado|date('d/m/Y H:i:s') }}
+                                    {% elseif chamado.status.idStatus == 4 %}
+                                        em {{ chamado.dataCancelado|date('d/m/Y H:i:s') }}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -91,40 +92,7 @@
                             {% endfor %}
                         </ul>
 
-                        <div id="post-add-comment" class="">
-                            {{ form_start(form, {"attr": {"novalidate": "novalidate"}}) }}
-                            <fieldset>
-                                <h1>Adicionar Comentários:</h1>
-                                {{ form_widget(form) }}
-                                <div class="form-group">
-                                    <button class="btn btn-primary pull-right" type="submit">Comentar</button>
-                                </div>
-                            </fieldset>
-                            {{ form_end(form) }}
-                        </div>
-
-                        <h3>
-                            {% if chamado.comentarios|length > 0 %}
-                                {{ chamado.comentarios|length }} comentários
-                            {% else %}
-                                Nenhum comentário
-                            {% endif %}
-                        </h3>
-
-                        {% for comentario in chamado.comentarios %}
-                            <img src="{{ asset(comentario.usuario.foto ? 'uploads/profile/' ~ comentario.usuario.foto : 'dist/img/no-photo.jpg') }}" class="img-circle" width="50" height="50"
-                                 alt="Imagem do Usuário">
-                            <div class="row post-comment">
-                                <h4 class="col-sm-2">
-                                    <strong>{{ comentario.usuario }} {% if comentario.usuario == chamado.tecnico %}(Técnico){% endif %}</strong> Comentário em
-                                    <strong>{{ comentario.data|date('d/m/Y H:i:s') }}</strong>
-                                </h4>
-                                <div class="col-sm-9">
-                                    <p>{{ comentario.mensagem }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-
+                        {% include 'AppBundle:Comentario:comentario.html.twig' %}
                     </div>
                     <div class="panel-footer">
                         <a href="{{ path('admin_chamado_index') }}" class="btn btn-default btn-group" role="group">
@@ -141,15 +109,29 @@
                                 <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
                             </a>
                         {% elseif is_granted('ROLE_TECNICO') %}
-                            <a href="{{ path('admin_chamado_edit', { 'id': chamado.idChamado }) }}"
-                               class="btn btn-success btn-group" role="group">
-                                <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Atender Chamado</span>
-                            </a>
-                            <a href="{{ path('admin_chamado_delete', { 'id': chamado.idChamado }) }}"
-                               class="btn btn-warning btn-group" role="group" title="Finalizar"
-                               data-confirm="Tem certeza de que deseja finalizar este chamado?">
-                                <i class="fa fa-check"></i> <span class="hidden-xs">Finalizar Chamado</span>
-                            </a>
+                            {% if chamado.status.idStatus == 1 and chamado.tecnico is null %}
+                                <a href="{{ path('admin_chamado_atender', { 'id': chamado.idChamado }) }}"
+                                   class="btn btn-success btn-group" role="group">
+                                    <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Atender Chamado</span>
+                                </a>
+                            {% endif %}
+
+                            {% if chamado.status.idStatus == 2 %}
+                                <a href="{{ path('admin_chamado_finish', { 'id': chamado.idChamado }) }}"
+                                   class="btn btn-warning btn-group" role="group" title="Finalizar"
+                                   data-confirm="Tem certeza de que deseja finalizar este chamado?">
+                                    <i class="fa fa-check"></i> <span class="hidden-xs">Finalizar Chamado</span>
+                                </a>
+                            {% endif %}
+
+                            {% if chamado.status.idStatus not in [3,4] and (chamado.tecnico == app.user or is_granted('ROLE_ADMIN') )%}
+                                <a href="{{ path('admin_chamado_cancel', { 'id': chamado.idChamado }) }}"
+                                   class="btn btn-danger btn-group" role="group" title="Cancelar"
+                                   data-confirm="Tem certeza de que deseja cancelar este chamado?">
+                                    <i class="fa fa-check"></i> <span class="hidden-xs">Cancelar Chamado</span>
+                                </a>
+                            {% endif %}
+
                         {% endif %}
                     </div>
                 </div>

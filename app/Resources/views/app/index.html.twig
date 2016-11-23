@@ -15,7 +15,7 @@
         <div class="row">
 
             {% if is_granted('ROLE_USUARIO') %}
-                {{ render(controller('AppBundle:Indicador:resolvidoAberto')) }}
+                {{ render(controller('AppBundle:Indicador:statusChamados')) }}
 
                 {{ render(controller('AppBundle:Indicador:chamadoAbertos')) }}
             {% endif %}
