@@ -187,10 +187,10 @@
                                 </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#">Chamados em Aberto</a></li>
-                            <li><a href="#">Chamados Atendidos</a></li>
-                            <li><a href="#">Atendimento por Técnico</a></li>
-                            <li><a href="#">Atendimento por Problema</a></li>
+                            <li><a href="{{ path('relatorio_chamados_abertos') }}">Chamados em Aberto</a></li>
+                            <li><a href="{{ path('relatorio_chamados_atendidos') }}">Chamados Atendidos</a></li>
+                            <li><a href="{{ path('relatorio_atendimento_tecnico') }}">Atendimento por Técnico</a></li>
+                            <li><a href="{{ path('relatorio_atendimento_problema') }}">Atendimento por Problema</a></li>
                         </ul>
                     </li>
                     <li class="header">Administração</li>
@@ -231,6 +231,10 @@
 <script src="{{ asset('plugins/morris.js/morris.min.js') }}"></script>
 <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script>
 <script src="{{ asset('plugins/chart.js/dist/Chart.bundle.min.js') }}"></script>
+<script src="{{ asset('plugins/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/moment/locale/pt-br.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 {% block javascripts %}{% endblock %}
 </body>
 </html>
