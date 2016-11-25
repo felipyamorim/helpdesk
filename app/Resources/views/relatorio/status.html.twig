@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Relatório</li>
-            <li class="active">Chamados por Problema</li>
+            <li class="active">Chamados por Status</li>
         </ol>
     </section>
 
@@ -18,18 +18,18 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="title">Chamados por Problema</h4>
+                        <h4 class="title">Chamados por Status</h4>
                     </div>
 
                     <div class="panel-body">
                         <form action="" method="post">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label for="problemas">Problema:</label>
-                                    <select id="problemas" name="problemas" class="form-control">
-                                        <option value="0">Todas os Problemas</option>
-                                        {% for problema in problemas %}
-                                            <option value="{{ problema.idProblema }}">{{ problema.nome }}</option>
+                                    <label for="status">Status:</label>
+                                    <select id="status" name="status" class="form-control">
+                                        <option value="0">Todas os Status</option>
+                                        {% for status in status %}
+                                            <option value="{{ status.id }}">{{ status.nome }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

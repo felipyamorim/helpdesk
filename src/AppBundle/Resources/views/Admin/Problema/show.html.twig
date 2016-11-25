@@ -17,32 +17,35 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="title">Problema #{{ problema.idProblema}} </h4>
+                        <h4 class="title">Problema</h4>
                     </div>
                     <div class="panel-body">
 
                         <table class="table table-striped table-hover">
                             <tbody>
-                                <tr>
-                                    <th>Idproblema</th>
-                                    <td>{{ problema.idProblema }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Nome</th>
-                                    <td>{{ problema.nome }}</td>
-                                </tr>
+                            <tr>
+                                <th>Id do Problema</th>
+                                <td>{{ problema.idProblema }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nome</th>
+                                <td>{{ problema.nome }}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="panel-footer">
-                                                    <a href="{{ path('admin_problema_index') }}" class="btn btn-default btn-group" role="group">
-        <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
-    </a>
-        <a href="{{ path('admin_problema_edit', { 'id': problema.idProblema }) }}" class="btn btn-success btn-group" role="group">
-            <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
-        </a>        <a href="{{ path('admin_problema_delete', { 'id': problema.idProblema }) }}" class="btn btn-danger btn-group" role="group" title="Deletar" data-confirm="Tem certeza de que deseja remover este registro?">
-            <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
-        </a></div>
+                        <a href="{{ path('admin_problema_index') }}" class="btn btn-default btn-group" role="group">
+                            <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
+                        </a>
+                        <a href="{{ path('admin_problema_edit', { 'id': problema.idProblema }) }}"
+                           class="btn btn-success btn-group" role="group">
+                            <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
+                        </a> <a href="{{ path('admin_problema_delete', { 'id': problema.idProblema }) }}"
+                                class="btn btn-danger btn-group" role="group" title="Deletar"
+                                data-confirm="Tem certeza de que deseja remover este registro?">
+                            <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
+                        </a></div>
                 </div>
             </div>
         </div>

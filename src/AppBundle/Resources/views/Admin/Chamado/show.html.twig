@@ -116,22 +116,21 @@
                                 </a>
                             {% endif %}
 
-                            {% if chamado.status.idStatus == 2 %}
+                            {% if chamado.status.idStatus == 2 and chamado.tecnico == app.user %}
                                 <a href="{{ path('admin_chamado_finish', { 'id': chamado.idChamado }) }}"
                                    class="btn btn-warning btn-group" role="group" title="Finalizar"
                                    data-confirm="Tem certeza de que deseja finalizar este chamado?">
                                     <i class="fa fa-check"></i> <span class="hidden-xs">Finalizar Chamado</span>
                                 </a>
                             {% endif %}
+                        {% endif %}
 
-                            {% if chamado.status.idStatus not in [3,4] and (chamado.tecnico == app.user or is_granted('ROLE_ADMIN') )%}
-                                <a href="{{ path('admin_chamado_cancel', { 'id': chamado.idChamado }) }}"
-                                   class="btn btn-danger btn-group" role="group" title="Cancelar"
-                                   data-confirm="Tem certeza de que deseja cancelar este chamado?">
-                                    <i class="fa fa-check"></i> <span class="hidden-xs">Cancelar Chamado</span>
-                                </a>
-                            {% endif %}
-
+                        {% if chamado.status.idStatus not in [3,4] and (chamado.tecnico == app.user or is_granted('ROLE_ADMIN'))%}
+                            <a href="{{ path('admin_chamado_cancel', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-danger btn-group" role="group" title="Cancelar"
+                               data-confirm="Tem certeza de que deseja cancelar este chamado?">
+                                <i class="fa fa-times"></i> <span class="hidden-xs">Cancelar Chamado</span>
+                            </a>
                         {% endif %}
                     </div>
                 </div>

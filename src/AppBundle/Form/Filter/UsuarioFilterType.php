@@ -18,7 +18,7 @@ class UsuarioFilterType extends AbstractType
     {
         $builder
             ->add('idUsuario', Filters\NumberFilterType::class, array(
-                'label' => 'Id'
+                'label' => 'Id do Usuário'
             ))
             ->add('nome', Filters\TextFilterType::class, array(
                 'condition_pattern' => FilterOperands::STRING_CONTAINS

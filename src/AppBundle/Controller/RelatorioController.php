@@ -15,9 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 class RelatorioController extends Controller
 {
     /**
-     * @Route("/atendidos", name="relatorio_chamados_atendidos")
+     * @Route("/status", name="relatorio_chamados_status")
      */
-    public function chamadosAtendidosAction(Request $request)
+    public function chamadosStatusAction(Request $request)
     {
         if($request->isMethod('POST')){
             $date = array();
@@ -30,52 +30,36 @@ class RelatorioController extends Controller
             return $this->exportPDF($html, $filename);
         }
         // replace this example code with whatever you need
-        return $this->render('relatorio/atendidos.html.twig');
+        return $this->render('relatorio/status.html.twig', array(
+            'status' => $this->getDoctrine()->getRepository('AppBundle:Status')->findBy(array(), array('idStatus' => 'asc'))
+        ));
     }
 
     /**
-     * @Route("/abertos", name="relatorio_chamados_abertos")
+     * @Route("/unidade", name="relatorio_chamados_unidade")
      */
-    public function chamadosAbertosAction(Request $request)
+    public function chamadosUnidadeAction(Request $request)
     {
         if($request->isMethod('POST')){
             $date = array();
             list($date['inicio'], $date['fim']) = explode(' - ', $request->get('daterange'));
 
-            $html = $this->render('relatorio/abertos.html.twig')->getContent();
+            $html = $this->render('unidade.html.twig')->getContent();
 
             $filename = sprintf('%s.pdf', date('Y-m-d'));
 
             return $this->exportPDF($html, $filename);
         }
 
-        return $this->render('relatorio/abertos.html.twig');
+        return $this->render('relatorio/unidade.html.twig', array(
+            'unidades' => $this->getDoctrine()->getRepository('AppBundle:Unidade')->findAll()
+        ));
     }
 
     /**
-     * @Route("/problema", name="relatorio_atendimento_problema")
+     * @Route("/problema", name="relatorio_chamados_problema")
      */
-    public function atendimentoProblemaAction(Request $request)
-    {
-        if($request->isMethod('POST')){
-            $date = array();
-            list($date['inicio'], $date['fim']) = explode(' - ', $request->get('daterange'));
-
-            $html = "Relatório";
-
-            $filename = sprintf('%s.pdf', date('Y-m-d'));
-
-            return $this->exportPDF($html, $filename);
-        }
-
-        // replace this example code with whatever you need
-        return $this->render('relatorio/problema.html.twig');
-    }
-
-    /**
-     * @Route("/tecnico", name="relatorio_atendimento_tecnico")
-     */
-    public function atendimentoTecnicoAction(Request $request)
+    public function chamadosProblemaAction(Request $request)
     {
         if($request->isMethod('POST')){
             $date = array();
@@ -89,7 +73,35 @@ class RelatorioController extends Controller
         }
 
         // replace this example code with whatever you need
-        return $this->render('relatorio/tecnico.html.twig');
+        return $this->render('relatorio/problema.html.twig', array(
+            'problemas' => $this->getDoctrine()->getRepository('AppBundle:Problema')->findAll()
+        ));
+    }
+
+    /**
+     * @Route("/tecnico", name="relatorio_chamados_tecnico")
+     */
+    public function chamadosTecnicoAction(Request $request)
+    {
+        if($request->isMethod('POST')){
+            $date = array();
+            list($date['inicio'], $date['fim']) = explode(' - ', $request->get('daterange'));
+
+            $html = "Relatório";
+
+            $filename = sprintf('%s.pdf', date('Y-m-d'));
+
+            return $this->exportPDF($html, $filename);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        // replace this example code with whatever you need
+        return $this->render('relatorio/tecnico.html.twig', array(
+            'tecnicos' => $em->getRepository('AppBundle:Usuario')->findBy(array(
+                'perfil' => $em->getReference('AppBundle\Entity\Perfil', 2)
+            ))
+        ));
     }
 
     public function exportPDF($html, $filename)

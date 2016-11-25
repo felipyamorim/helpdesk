@@ -25,11 +25,14 @@ class ChamadoFilterType extends AbstractType
             ))
             ->add('problema', Filters\EntityFilterType::class, array(
                 'label' => 'Problema',
-                'class' => 'AppBundle\Entity\Problema'
+                'class' => 'AppBundle\Entity\Problema',
+                'placeholder' => 'Selecione o Problema'
             ))
             ->add('data', Filters\DateFilterType::class, array(
+                'label' => 'Data de Abertura',
+                'attr' => array('placeholder' => 'dd/mm/aaaa'),
                 'widget' => 'single_text',
-                'format' => 'd-M-y',
+                'format' => 'd/M/y',
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values){
                     if (empty($values['value'])) {
                         return null;
@@ -41,6 +44,7 @@ class ChamadoFilterType extends AbstractType
                 }
             ))
             ->add('status', Filters\EntityFilterType::class, array(
+                'placeholder' => 'Selecione o Status',
                 'class' => 'AppBundle\Entity\Status',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('s')
@@ -55,8 +59,26 @@ class ChamadoFilterType extends AbstractType
                     'Alta' => '3'
                 )
             ))
-            ->add('usuario', Filters\TextFilterType::class)
-            ->add('tecnico', Filters\TextFilterType::class)
+            ->add('usuario', Filters\EntityFilterType::class, array(
+                'placeholder' => 'Selecione o Usuário',
+                'class' => 'AppBundle\Entity\Usuario',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('u')
+                        ->join('u.perfil', 'p')
+                        ->where('p.idPerfil = :perfil')
+                        ->setParameter(':perfil', 1);
+                }
+            ))
+            ->add('tecnico', Filters\EntityFilterType::class, array(
+                'placeholder' => 'Selecione o Técnico',
+                'class' => 'AppBundle\Entity\Usuario',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('u')
+                        ->join('u.perfil', 'p')
+                        ->where('p.idPerfil = :perfil')
+                        ->setParameter(':perfil', 2);
+                }
+            ))
         ;
     }
     

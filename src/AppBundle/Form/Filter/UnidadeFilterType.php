@@ -16,7 +16,9 @@ class UnidadeFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUnidade', Filters\NumberFilterType::class)
+            ->add('idUnidade', Filters\NumberFilterType::class, array(
+                'label' => 'Id da Unidade'
+            ))
             ->add('nome', Filters\TextFilterType::class)
         ;
     }
@@ -27,6 +29,7 @@ class UnidadeFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'horizontal' => false,
             'data_class' => 'AppBundle\Entity\Unidade',
             'csrf_protection'   => false,
             'validation_groups' => array('filtering'), // avoid NotBlank() constraint-related message

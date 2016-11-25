@@ -25,18 +25,17 @@
                                 {{ form_row(filter_form.idChamado) }}
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 {{ form_row(filter_form.problema) }}
                             </div>
 
-                            <div class="col-md-3">
-                                {{ form_row(filter_form.data) }}
-                            </div>
-
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 {{ form_row(filter_form.status) }}
                             </div>
 
+                            <div class="col-md-2">
+                                {{ form_row(filter_form.data) }}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -113,7 +112,7 @@
                                         {% endif %}
                                     </td>
                                     <td>{{ chamado.usuario.unidade }}</td>
-                                    <td>{% if chamado.data %}{{ chamado.data|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if chamado.data %}{{ chamado.data|date('d-m-Y H:i:s') }}{% endif %}</td>
                                     <td>
                                         {% if chamado.status is not null %}
                                             {{ chamado.status }}
@@ -150,4 +149,20 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#chamado_filter_data').daterangepicker({
+            "autoApply": true,
+            "opens": 'right',
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+            "singleDatePicker": true,
+            "autoUpdateInput": false,
+        }, function(chosen_date) {
+            $('#chamado_filter_data').val(chosen_date.format('DD/MM/YYYY'));
+        });
+    </script>
 {% endblock %}
