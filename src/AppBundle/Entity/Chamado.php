@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AdminChamado
@@ -110,6 +112,17 @@ class Chamado
      */
     private $comentarios;
 
+    /**
+     * @var UploadedFile[]
+     *
+     * @Assert\Valid()
+     *
+     * @Assert\Count(max="5")
+     *
+     * @Assert\All({
+     *     @Assert\File(maxSize="1M")
+     * })
+     */
     private $files;
 
     /**

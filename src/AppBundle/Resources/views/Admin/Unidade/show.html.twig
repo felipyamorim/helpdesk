@@ -23,26 +23,29 @@
 
                         <table class="table table-striped table-hover">
                             <tbody>
-                                <tr>
-                                    <th>Id da Unidade</th>
-                                    <td>{{ unidade.idUnidade }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Nome</th>
-                                    <td>{{ unidade.nome }}</td>
-                                </tr>
+                            <tr>
+                                <th>Id da Unidade</th>
+                                <td>{{ unidade.idUnidade }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nome</th>
+                                <td>{{ unidade.nome }}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="panel-footer">
-                                                    <a href="{{ path('admin_unidade_index') }}" class="btn btn-default btn-group" role="group">
-        <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
-    </a>
-        <a href="{{ path('admin_unidade_edit', { 'id': unidade.idUnidade }) }}" class="btn btn-success btn-group" role="group">
-            <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
-        </a>        <a href="{{ path('admin_unidade_delete', { 'id': unidade.idUnidade }) }}" class="btn btn-danger btn-group" role="group" title="Deletar" data-confirm="Tem certeza de que deseja remover este registro?">
-            <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
-        </a></div>
+                        <a href="{{ path('admin_unidade_index') }}" class="btn btn-default btn-group" role="group">
+                            <i class="fa fa-arrow-left"></i> <span class="hidden-xs">Voltar</span>
+                        </a>
+                        <a href="{{ path('admin_unidade_edit', { 'id': unidade.idUnidade }) }}"
+                           class="btn btn-success btn-group" role="group">
+                            <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
+                        </a> <a href="{{ path('admin_unidade_delete', { 'id': unidade.idUnidade }) }}"
+                                class="btn btn-danger btn-group" role="group" title="Desativar"
+                                data-confirm="Tem certeza de que deseja desativar este registro?">
+                            <i class="fa fa-trash-o"></i> <span class="hidden-xs">Desativar</span>
+                        </a></div>
                 </div>
             </div>
         </div>

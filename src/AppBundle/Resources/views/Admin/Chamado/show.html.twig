@@ -103,12 +103,16 @@
                                class="btn btn-success btn-group" role="group">
                                 <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Editar</span>
                             </a>
-                            <a href="{{ path('admin_chamado_delete', { 'id': chamado.idChamado }) }}"
-                               class="btn btn-danger btn-group" role="group" title="Deletar"
-                               data-confirm="Tem certeza de que deseja remover este registro?">
-                                <i class="fa fa-trash-o"></i> <span class="hidden-xs">Deletar</span>
+                            <a href="{{ path('admin_chamado_atender', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-success btn-group" role="group">
+                                <i class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Atender Chamado</span>
                             </a>
-                        {% elseif is_granted('ROLE_TECNICO') %}
+                            <a href="{{ path('admin_chamado_finish', { 'id': chamado.idChamado }) }}"
+                               class="btn btn-warning btn-group" role="group" title="Finalizar"
+                               data-confirm="Tem certeza de que deseja finalizar este chamado?">
+                                <i class="fa fa-check"></i> <span class="hidden-xs">Finalizar Chamado</span>
+                            </a>
+                        {% elseif is_granted('ROLE_TECNICO')  %}
                             {% if chamado.status.idStatus == 1 and chamado.tecnico is null %}
                                 <a href="{{ path('admin_chamado_atender', { 'id': chamado.idChamado }) }}"
                                    class="btn btn-success btn-group" role="group">

@@ -35,9 +35,11 @@ class ChamadoType extends AbstractType
             ->add('descricao', CKEditorType::class, array(
                 'label' => 'Descrição',
                 'config' => array(
-                'uiColor' => '#ffffff',
-                //'toolbar' => [ ["Source", "-", "Save"], "/", ["Anchor"], "/", ["Maximize"] ]
-                    //...
+                    'toolbar' =>  array(
+                        [ "Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript", "-", "RemoveFormat" ], ["NumberedList", "BulletedList", "Outdent", "Indent", "Blockquote", "CreateDiv", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "BidiLtr", "BidiRtl"], ["Link","Unlink"], ["Image", "Table", "HorizontalRule", "PageBreak"],
+                        [ "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "Undo", "Redo" ], ["Find", "Replace", "SelectAll", "Scayt"], [ "Styles", "Format", "Font", "FontSize" ], "/",
+                ),
+                    'uiColor' => '#ffffff',
                 ),
             ))
             ->add('prioridade', Type\ChoiceType::class, array(
