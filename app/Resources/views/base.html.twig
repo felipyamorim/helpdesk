@@ -107,6 +107,7 @@
                     </a>
                 </li>
                 {% if is_granted('ROLE_USUARIO') %}
+                <li><a href="{{ path('admin_chamado_index') }}"><i class="fa fa-list-alt"></i> <span>Chamado</span></a></li>
                 <li class="treeview {% if app.request.attributes.get('_route') == 'chamado_new' %}active{% else %}treeview{% endif %}">
                     <a href="#"><i class="fa fa-list-alt"></i> <span>Chamado</span>
                         <span class="pull-right-container">

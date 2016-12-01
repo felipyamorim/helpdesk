@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Telefone
@@ -24,6 +25,8 @@ class Telefone
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="10", max="11")
      * @ORM\Column(name="numero", type="string", length=11, nullable=false)
      */
     private $numero;
@@ -37,6 +40,8 @@ class Telefone
 
     /**
      * @var TipoTelefone
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\TipoTelefone")
      * @ORM\JoinColumns({

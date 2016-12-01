@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsuarioType extends AbstractType
 {
@@ -67,7 +69,8 @@ class UsuarioType extends AbstractType
                     'required' => true,
                     'invalid_message' => 'As senhas não conferem, digite novamente.',
                     'first_options'  => array('label' => 'Noca Senha'),
-                    'second_options' => array('label' => 'Confirmar Senha')
+                    'second_options' => array('label' => 'Confirmar Senha'),
+                    'constraints' => array(new NotBlank(), new Length(array('min' => '8', 'max' => '16')))
                 ));
             }
         });
@@ -80,7 +83,7 @@ class UsuarioType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Usuario',
-            'validation_groups' => array('Default', 'cadastro_admin', 'registrar')
+            'validation_groups' => array('Default', 'cadastro_admin')
         ));
     }
 }

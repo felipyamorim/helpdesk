@@ -37,6 +37,7 @@ class Usuario implements UserInterface, \Serializable
      * @var string
      * @Assert\NotBlank()
      * @Assert\Length(max="45")
+     * @Assert\Email()
      * @ORM\Column(name="email", type="string", length=45, nullable=false)
      */
     private $email;
@@ -68,6 +69,7 @@ class Usuario implements UserInterface, \Serializable
      * @var Perfil
      *
      * @Assert\NotBlank(groups={"cadastro_admin"})
+     *
      * @ORM\OneToOne(targetEntity="Perfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="perfil", referencedColumnName="idPerfil")
@@ -102,6 +104,10 @@ class Usuario implements UserInterface, \Serializable
 
     /**
      * @var Telefone
+     *
+     * @Assert\Valid()
+     *
+     * @Assert\Count(min="1", minMessage="É necessário informar ao menos 1 (um) telefone.")
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Telefone", mappedBy="usuario", cascade={"persist"})
      */

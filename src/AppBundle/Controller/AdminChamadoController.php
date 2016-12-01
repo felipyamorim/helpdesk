@@ -18,7 +18,7 @@ use AppBundle\Form\Filter\ChamadoFilterType;
 /**
  * AdminChamado controller.
  *
- * @Route("/admin/chamado")
+ * @Route("/chamado")
  */
 class AdminChamadoController extends Controller
 {
@@ -34,6 +34,14 @@ class AdminChamadoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $query = $em->getRepository('AppBundle:Chamado')->createQueryBuilder('c');
+
+        if($this->isGranted('ROLE_USUARIO')){
+            $query
+                ->join('c.usuario', 'u')
+                ->where('u.unidade = :unidade')
+                ->setParameter(':unidade', $this->getUser()->getUnidade())
+                ->orderBy('c.prioridade',  'DESC');
+        }
 
         $form = $this->createForm(ChamadoFilterType::class);
 
@@ -83,6 +91,10 @@ class AdminChamadoController extends Controller
                     $anexo->setCaminho($fileName);
                     $chamado->addAnexo($anexo);
                 }
+            }
+
+            if(empty($chamado->getUsuario())){
+                $chamado->setUsuario($this->getUser());
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -196,6 +208,7 @@ class AdminChamadoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $chamado->setStatus($em->getReference('AppBundle\Entity\Status', 2));
+        $chamado->setTecnico($this->getUser());
         $em->persist($chamado);
         $em->flush();
 
@@ -235,8 +248,10 @@ class AdminChamadoController extends Controller
      */
     public function cancelarAction(Chamado $chamado)
     {
-        if($chamado->getTecnico() != $this->getUser()){
-            throw new AccessDeniedException('Chamado já encontra-se em atendimento por outro técnico');
+        if(!$this->isGranted('ROLE_ADMIN')){
+            if($chamado->getTecnico() != $this->getUser()){
+                throw new AccessDeniedException('Chamado já encontra-se em atendimento por outro técnico');
+            }
         }
 
         $em = $this->getDoctrine()->getManager();

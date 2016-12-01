@@ -26,6 +26,8 @@ class Chamado
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="descricao", type="string", length=120, nullable=false)
      */
     private $descricao;
@@ -64,6 +66,7 @@ class Chamado
     /**
      * @var integer
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="prioridade", type="integer", nullable=false)
      */
     private $prioridade;
@@ -71,6 +74,8 @@ class Chamado
     /**
      * @var Problema
      *
+     *
+     * @Assert\NotBlank()
      * @ORM\OneToOne(targetEntity="Problema")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="problema", referencedColumnName="idProblema")

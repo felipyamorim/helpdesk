@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Problema
@@ -23,7 +24,8 @@ class Problema
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min="5", max="255")
      * @ORM\Column(name="nome", type="string", length=255, nullable=false)
      */
     private $nome;

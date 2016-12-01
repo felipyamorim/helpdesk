@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChamadoType extends AbstractType
 {
@@ -31,13 +32,15 @@ class ChamadoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('problema')
+            ->add('problema', null, array(
+                'required' => true,
+                'placeholder' => 'Selecione o Problema'
+            ))
             ->add('descricao', CKEditorType::class, array(
                 'label' => 'Descrição',
                 'config' => array(
                     'toolbar' =>  array(
-                        [ "Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript", "-", "RemoveFormat" ], ["NumberedList", "BulletedList", "Outdent", "Indent", "Blockquote", "CreateDiv", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "BidiLtr", "BidiRtl"], ["Link","Unlink"], ["Image", "Table", "HorizontalRule", "PageBreak"],
-                        [ "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "Undo", "Redo" ], ["Find", "Replace", "SelectAll", "Scayt"], [ "Styles", "Format", "Font", "FontSize" ], "/",
+                        [ "Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript", "-", "RemoveFormat" ], [ "Styles", "Format", "Font", "FontSize" ], [ "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "Undo", "Redo" ],
                 ),
                     'uiColor' => '#ffffff',
                 ),
@@ -73,23 +76,15 @@ class ChamadoType extends AbstractType
                                 ->join('u.perfil', 'p')
                                 ->where('p.idPerfil = :id')
                                 ->setParameter(':id', 1);
-                        }
-                    ))
-                    ->add('tecnico', EntityType::class, array(
-                        'placeholder' => 'Selecione o Técnico',
-                        'class' => Usuario::class,
-                        'query_builder' => function(EntityRepository $er){
-                            return $er->createQueryBuilder('u')
-                                ->join('u.perfil', 'p')
-                                ->where('p.idPerfil <> :id')
-                                ->setParameter(':id', 1);
-                        }
+                        },
+                        'constraints' => array(new NotBlank())
                     ));
             }
 
             if (!$chamado || null === $chamado->getIdChamado()) {
                 $form->add('files', Type\FileType::class, array(
                     'label' => 'Anexos',
+                    'required' => false,
                     'multiple' => true,
                     'help_block' => 'Você pode enviar mais de 1 arquivo.'
                 ));
@@ -103,7 +98,8 @@ class ChamadoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Chamado'
+            'data_class' => 'AppBundle\Entity\Chamado',
+            'validation_groups' => array('Default')
         ));
     }
 }

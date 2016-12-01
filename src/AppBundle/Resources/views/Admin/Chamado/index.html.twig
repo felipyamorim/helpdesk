@@ -121,22 +121,24 @@
                                         {% endif %}
                                     </td>
                                     <td>
-
                                         <div class="btn-toolbar" role="toolbar"><a
                                                     href="{{ path('admin_chamado_show', { 'id': chamado.idChamado }) }}"
                                                     class="btn btn-default btn-group" role="group">
                                                 <i class="fa fa-eye"></i> <span class="hidden-xs">Visualizar</span>
-                                            </a> <a href="{{ path('admin_chamado_edit', { 'id': chamado.idChamado }) }}"
-                                                    class="btn btn-success btn-group" role="group">
-                                                <i class="fa fa-pencil-square-o"></i> <span
-                                                        class="hidden-xs">Editar</span>
                                             </a>
+                                            {% if not is_granted('ROLE_USUARIO') %}
+                                                <a href="{{ path('admin_chamado_edit', { 'id': chamado.idChamado }) }}"
+                                                        class="btn btn-success btn-group" role="group">
+                                                    <i class="fa fa-pencil-square-o"></i> <span
+                                                            class="hidden-xs">Editar</span>
+                                                </a>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td colspan="6">Nenhum registro encontrado!</td>
+                                    <td colspan="7">Nenhum registro encontrado!</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
