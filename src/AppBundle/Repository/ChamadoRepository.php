@@ -2,7 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Problema;
+use AppBundle\Entity\Status;
 use AppBundle\Entity\Unidade;
+use AppBundle\Entity\Usuario;
 use Doctrine\ORM\EntityRepository;
 
 class ChamadoRepository extends EntityRepository
@@ -100,6 +103,83 @@ class ChamadoRepository extends EntityRepository
             ->select('p.nome, count(p.nome) as total')
             ->innerJoin('c.problema', 'p')
             ->groupBy('p.nome')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function relatorioChamadoStatus(array $periodo, Status $status = null){
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.data > :dataInicial')
+            ->andWhere('c.data < :dataFinal')
+            ->setParameter(':dataInicial', $periodo['inicio'])
+            ->setParameter(':dataFinal', $periodo['fim']);
+
+            /** @var Status $status */
+            if($status->getIdStatus() != 0){
+                $qb
+                    ->andWhere('c.status = :status')
+                    ->setParameter(':status', $status);
+            }
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function relatorioChamadoUnidade(array $periodo, Unidade $unidade = null){
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.data > :dataInicial')
+            ->andWhere('c.data < :dataFinal')
+            ->setParameter(':dataInicial', $periodo['inicio'])
+            ->setParameter(':dataFinal', $periodo['fim']);
+
+        /** @var Unidade $unidade */
+        if($unidade->getIdUnidade() != 0){
+            $qb
+                ->join('c.usuario', 'u')
+                ->andWhere('u.unidade = :unidade')
+                ->setParameter(':unidade', $unidade);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function relatorioChamadoProblema(array $periodo, Problema $problema = null){
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.data > :dataInicial')
+            ->andWhere('c.data < :dataFinal')
+            ->setParameter(':dataInicial', $periodo['inicio'])
+            ->setParameter(':dataFinal', $periodo['fim']);
+
+        /** @var Problema $problema */
+        if($problema->getIdProblema() != 0){
+            $qb
+                ->andWhere('c.problema = :problema')
+                ->setParameter(':problema', $problema);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function relatorioChamadoTecnico(array $periodo, Usuario $tecnico = null){
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.data > :dataInicial')
+            ->andWhere('c.data < :dataFinal')
+            ->setParameter(':dataInicial', $periodo['inicio'])
+            ->setParameter(':dataFinal', $periodo['fim']);
+
+        /** @var Usuario $tecnico */
+        if($tecnico->getIdUsuario() != 0){
+            $qb
+                ->andWhere('c.tecnico = :tecnico')
+                ->setParameter(':tecnico', $tecnico);
+        }
+
+        return $qb
             ->getQuery()
             ->getResult();
     }

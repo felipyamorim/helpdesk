@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{{ absolute_url(asset('plugins/bootstrap/dist/css/bootstrap.min.css')) }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ absolute_url(asset('plugins/font-awesome/css/font-awesome.min.css')) }}"></head>
+    <script>
+    function subst() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+        var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+        for (var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for (var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+    }
+</script>
+</head>
+<body onload="subst()">
+    <table style="border-top: 1px solid black; width: 100%;">
+        <tr>
+            <td class="section"></td>
+            <td style="text-align:right">
+                Página <span class="page"></span> de <span class="topage"></span> - Emitido em {{ "now"|date('d/m/Y H:i:s') }}
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

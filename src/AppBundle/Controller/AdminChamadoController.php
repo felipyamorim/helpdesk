@@ -256,6 +256,7 @@ class AdminChamadoController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $chamado->setStatus($em->getReference('AppBundle\Entity\Status', 4));
+        $chamado->setDataCancelado(new \DateTime());
         $em->persist($chamado);
         $em->flush();
 

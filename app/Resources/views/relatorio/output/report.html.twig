@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{{ absolute_url(asset('plugins/bootstrap/dist/css/bootstrap.min.css')) }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ absolute_url(asset('plugins/font-awesome/css/font-awesome.min.css')) }}"></head>
+<body>
+    <div class="container">
+        <div class="row" style="padding-top: 50px">
+            <div class="text-center">
+                <h1>HelpNow - Sistema de Help Desk!</h1>
+                <h3>{{ nome }}</h3>
+                <p>Período do Relátorio: {{ periodo }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Problema</th>
+                    <th>Status</th>
+                    <th>Data de Abertura</th>
+                    <th>Usuário</th>
+                    <th>Unidade</th>
+                    <th>Técnico</th>
+                    <th>Data de Finalização</th>
+                    <th>Data de Cancelamento</th>
+                </tr>
+                {% for chamado in chamados %}
+                    <tr>
+                        <td>{{ chamado.idChamado }}</td>
+                        <td>{{ chamado.problema }}</td>
+                        <td>{{ chamado.status }}</td>
+                        <td>{{ chamado.data|date('d/m/Y') }}</td>
+                        <td>{{ chamado.usuario }}</td>
+                        <td>{{ chamado.usuario.unidade }}</td>
+                        <td>{{ chamado.tecnico }}</td>
+                        <td>{% if chamado.dataFinalizado is not null %}{{ chamado.dataFinalizado|date('d/m/Y') }}{% endif %}</td>
+                        <td>{% if chamado.dataCancelado is not null %}{{ chamado.dataCancelado|date('d/m/Y') }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
