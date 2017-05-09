@@ -78,7 +78,6 @@ class ChamadoRepository extends EntityRepository
                     UNION SELECT (month(CURDATE()) - 2) AS MONTH 
                     UNION SELECT (month(CURDATE()) - 3) AS MONTH 
                     UNION SELECT (month(CURDATE()) - 4) AS MONTH 
-                    UNION SELECT (month(CURDATE()) - 5) AS MONTH
                 ) AS m
                 ORDER BY m.month ASC';
 

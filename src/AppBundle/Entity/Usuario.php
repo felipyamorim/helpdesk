@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Usuario
  *
- * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="fk_Usuario_Perfil_idx", columns={"perfil"}), @ORM\Index(name="fk_Usuario_Unidade1_idx", columns={"unidade"})})
+ * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
  */
 class Usuario implements UserInterface, \Serializable
@@ -61,7 +61,7 @@ class Usuario implements UserInterface, \Serializable
      * @var string
      * @Assert\NotBlank(groups={"registrar"})
      * @Assert\Length(min="8", max="16", groups={"registrar"})
-     * @ORM\Column(name="senha", type="string", length=45, nullable=false)
+     * @ORM\Column(name="senha", type="string", length=256, nullable=false)
      */
     private $senha;
 
@@ -70,7 +70,7 @@ class Usuario implements UserInterface, \Serializable
      *
      * @Assert\NotBlank(groups={"cadastro_admin"})
      *
-     * @ORM\OneToOne(targetEntity="Perfil")
+     * @ORM\ManyToOne(targetEntity="Perfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="perfil", referencedColumnName="idPerfil")
      * })
@@ -81,7 +81,7 @@ class Usuario implements UserInterface, \Serializable
      * @var Unidade
      *
      * @Assert\NotBlank()
-     * @ORM\OneToOne(targetEntity="Unidade")
+     * @ORM\ManyToOne(targetEntity="Unidade")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="unidade", referencedColumnName="idUnidade")
      * })
@@ -116,7 +116,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="foto", type="string", length=255)
+     * @ORM\Column(name="foto", type="string", length=255, nullable=true)
      */
     private $foto;
 

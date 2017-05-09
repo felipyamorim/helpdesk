@@ -42,14 +42,14 @@ class Chamado
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataFinalizado", type="datetime", nullable=false)
+     * @ORM\Column(name="dataFinalizado", type="datetime", nullable=true)
      */
     private $dataFinalizado;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataCancelado", type="datetime", nullable=false)
+     * @ORM\Column(name="dataCancelado", type="datetime", nullable=true)
      */
     private $dataCancelado;
 

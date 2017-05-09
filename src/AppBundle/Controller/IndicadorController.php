@@ -36,7 +36,7 @@ class IndicadorController extends Controller
         );
 
         $balancoArray = $this->getDoctrine()->getRepository('AppBundle:Chamado')->balancoChamados();
-
+		
         $balanco = array_map(function($balancoArray) use ($month){
             $balancoArray['month'] = $month[$balancoArray['month']];
             return $balancoArray;
